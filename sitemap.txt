@@ -1,10 +1,10 @@
 https://andy-whb-cn.github.io/tags/index.html
 https://andy-whb-cn.github.io/404.html
-https://andy-whb-cn.github.io/categories/index.html
-https://andy-whb-cn.github.io/books/index.html
-https://andy-whb-cn.github.io/repository/index.html
 https://andy-whb-cn.github.io/about/index.html
 https://andy-whb-cn.github.io/links/index.html
+https://andy-whb-cn.github.io/books/index.html
+https://andy-whb-cn.github.io/categories/index.html
+https://andy-whb-cn.github.io/repository/index.html
 https://andy-whb-cn.github.io/2024/08/22/my-new-post/
 https://andy-whb-cn.github.io/2024/04/30/hello-world/
 https://andy-whb-cn.github.io/
