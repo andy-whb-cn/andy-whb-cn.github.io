@@ -47,6 +47,15 @@
   </url>
   
   <url>
+    <loc>https://andy-whb-cn.github.io/404.html</loc>
+    
+    <lastmod>2024-08-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://andy-whb-cn.github.io/categories/index.html</loc>
     
     <lastmod>2024-08-22</lastmod>
@@ -65,15 +74,6 @@
   </url>
   
   <url>
-    <loc>https://andy-whb-cn.github.io/links/index.html</loc>
-    
-    <lastmod>2024-08-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://andy-whb-cn.github.io/repository/index.html</loc>
     
     <lastmod>2024-08-22</lastmod>
@@ -83,7 +83,7 @@
   </url>
   
   <url>
-    <loc>https://andy-whb-cn.github.io/404.html</loc>
+    <loc>https://andy-whb-cn.github.io/links/index.html</loc>
     
     <lastmod>2024-08-22</lastmod>
     
@@ -101,13 +101,6 @@
 
   
   <url>
-    <loc>https://andy-whb-cn.github.io/tags/Flink/</loc>
-    <lastmod>2024-08-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://andy-whb-cn.github.io/tags/Vue/</loc>
     <lastmod>2024-08-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -116,6 +109,13 @@
   
   <url>
     <loc>https://andy-whb-cn.github.io/tags/%E5%89%8D%E7%AB%AF/</loc>
+    <lastmod>2024-08-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://andy-whb-cn.github.io/tags/Flink/</loc>
     <lastmod>2024-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
