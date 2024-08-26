@@ -1,12 +1,13 @@
+https://andy-whb-cn.github.io/2024/08/26/%E5%89%8D%E7%AB%AF%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B/
 https://andy-whb-cn.github.io/2024/04/30/IFrame-Auto-Resize/
 https://andy-whb-cn.github.io/2024/08/22/Flink-Nested-Json/
 https://andy-whb-cn.github.io/tags/index.html
 https://andy-whb-cn.github.io/404.html
-https://andy-whb-cn.github.io/categories/index.html
-https://andy-whb-cn.github.io/books/index.html
-https://andy-whb-cn.github.io/about/index.html
-https://andy-whb-cn.github.io/repository/index.html
 https://andy-whb-cn.github.io/links/index.html
+https://andy-whb-cn.github.io/about/index.html
+https://andy-whb-cn.github.io/books/index.html
+https://andy-whb-cn.github.io/repository/index.html
+https://andy-whb-cn.github.io/categories/index.html
 https://andy-whb-cn.github.io/
 https://andy-whb-cn.github.io/tags/Flink/
 https://andy-whb-cn.github.io/tags/Vue-%E5%89%8D%E7%AB%AF/

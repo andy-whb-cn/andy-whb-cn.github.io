@@ -6,7 +6,7 @@
   <link href="https://andy-whb-cn.github.io/atom.xml" rel="self"/>
   
   <link href="https://andy-whb-cn.github.io/"/>
-  <updated>2024-08-26T08:58:48.787Z</updated>
+  <updated>2024-08-26T09:49:15.059Z</updated>
   <id>https://andy-whb-cn.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://andy-whb-cn.github.io/2024/08/26/%E5%89%8D%E7%AB%AF%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B/"/>
+    <id>https://andy-whb-cn.github.io/2024/08/26/%E5%89%8D%E7%AB%AF%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B/</id>
+    <published>2024-08-26T09:41:36.083Z</published>
+    <updated>2024-08-26T09:49:15.059Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前端版本更新检测方案"><a href="#前端版本更新检测方案" class="headerlink" title="前端版本更新检测方案"></a>前端版本更新检测方案</h2><h4 id="采用Etag比较"><a href="#采用Etag比较" class="headerlink" title="采用Etag比较"></a>采用Etag比较</h4><p><a href="https://blog.csdn.net/qq_38951259/article/details/136739490">https://blog.csdn.net/qq_38951259/article/details/136739490</a></p><h4 id="采用前后端Version比较"><a href="#采用前后端Version比较" class="headerlink" title="采用前后端Version比较"></a>采用前后端Version比较</h4><p>1、后台提供轻量级version api；<br>2、前端页面初始化或定时，比较本地version和服务端version是否有变更，设置local vesion变更变量；<br>3、前端在进入router前，判断有local vesion变更变量，刷新本地缓存并删除local vesion变更变量；</p><p>引申：为避免频繁去请求后台的version，可以考虑按时间戳（每日）去检查远端version更新。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;前端版本更新检测方案&quot;&gt;&lt;a href=&quot;#前端版本更新检测方案&quot; class=&quot;headerlink&quot; title=&quot;前端版本更新检测方案&quot;&gt;&lt;/a&gt;前端版本更新检测方案&lt;/h2&gt;&lt;h4 id=&quot;采用Etag比较&quot;&gt;&lt;a href=&quot;#采用Etag比较&quot; cla</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Flink 处理复杂的Json格式</title>
