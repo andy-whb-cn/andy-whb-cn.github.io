@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://andy-whb-cn.github.io/2024/08/29/Excalidraw/%E5%B8%B8%E8%A7%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%202024-08-29%2015.23.01.excalidraw/</loc>
+    <loc>https://andy-whb-cn.github.io/2024/08/27/Java%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC/</loc>
     
     <lastmod>2024-08-29</lastmod>
     
@@ -12,15 +12,6 @@
   
   <url>
     <loc>https://andy-whb-cn.github.io/2024/08/28/%E5%B8%B8%E8%A7%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/</loc>
-    
-    <lastmod>2024-08-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://andy-whb-cn.github.io/2024/08/27/Java%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC/</loc>
     
     <lastmod>2024-08-29</lastmod>
     
@@ -65,34 +56,16 @@
   </url>
   
   <url>
+    <loc>https://andy-whb-cn.github.io/404.html</loc>
+    
+    <lastmod>2024-08-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://andy-whb-cn.github.io/books/index.html</loc>
-    
-    <lastmod>2024-08-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://andy-whb-cn.github.io/categories/index.html</loc>
-    
-    <lastmod>2024-08-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://andy-whb-cn.github.io/links/index.html</loc>
-    
-    <lastmod>2024-08-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://andy-whb-cn.github.io/repository/index.html</loc>
     
     <lastmod>2024-08-22</lastmod>
     
@@ -110,7 +83,25 @@
   </url>
   
   <url>
-    <loc>https://andy-whb-cn.github.io/404.html</loc>
+    <loc>https://andy-whb-cn.github.io/links/index.html</loc>
+    
+    <lastmod>2024-08-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://andy-whb-cn.github.io/categories/index.html</loc>
+    
+    <lastmod>2024-08-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://andy-whb-cn.github.io/repository/index.html</loc>
     
     <lastmod>2024-08-22</lastmod>
     
@@ -149,6 +140,20 @@
   </url>
   
   <url>
+    <loc>https://andy-whb-cn.github.io/tags/Java/</loc>
+    <lastmod>2024-08-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://andy-whb-cn.github.io/tags/%E8%84%9A%E6%9C%AC/</loc>
+    <lastmod>2024-08-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://andy-whb-cn.github.io/tags/java/</loc>
     <lastmod>2024-08-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -164,27 +169,6 @@
   
   <url>
     <loc>https://andy-whb-cn.github.io/tags/%E6%9E%B6%E6%9E%84/</loc>
-    <lastmod>2024-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://andy-whb-cn.github.io/tags/Java/</loc>
-    <lastmod>2024-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://andy-whb-cn.github.io/tags/%E8%84%9A%E6%9C%AC/</loc>
-    <lastmod>2024-08-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://andy-whb-cn.github.io/tags/excalidraw/</loc>
     <lastmod>2024-08-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
