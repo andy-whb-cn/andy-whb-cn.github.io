@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>SOA架构vs微服务架构 | Andy&#39;s Note</title>
+  <meta name="description" content="SOA架构和微服务架构最主要的区别：面向的范围不同。SOA架构主要面向企业级服务，微服务架构主要面向应用级服务典型的微服务架构：基础原则：  服务自治：每个服务都拥有独立的数据库和功能，可以独立开发和部署。 去中心化的数据管理：强调服务的数据自主性，减少数据耦合，解决在单体应用中可能出现的数据一致性问题。 技术的异质性：每个服务可以选择最适合的技术栈开发，提升效率和创新。挑战： 分布式服务的复杂性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SOA架构vs微服务架构">
+<meta property="og:url" content="https://andy-whb-cn.github.io/2024/09/03/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/SOA%E6%9E%B6%E6%9E%84%20vs%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:site_name" content="Andy&#39;s Note">
+<meta property="og:description" content="SOA架构和微服务架构最主要的区别：面向的范围不同。SOA架构主要面向企业级服务，微服务架构主要面向应用级服务典型的微服务架构：基础原则：  服务自治：每个服务都拥有独立的数据库和功能，可以独立开发和部署。 去中心化的数据管理：强调服务的数据自主性，减少数据耦合，解决在单体应用中可能出现的数据一致性问题。 技术的异质性：每个服务可以选择最适合的技术栈开发，提升效率和创新。挑战： 分布式服务的复杂性">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/09/03/LHZYIe7m26gaPRN.png">
+<meta property="og:image" content="https://s2.loli.net/2024/09/03/iyrj3mZq5x8XSTv.png">
+<meta property="og:image" content="https://s2.loli.net/2024/09/03/VKqOLTi1uNY3tjZ.png">
+<meta property="article:published_time" content="2024-09-03T01:30:00.000Z">
+<meta property="article:modified_time" content="2024-09-03T02:29:16.772Z">
+<meta property="article:author" content="Andy">
+<meta property="article:tag" content="架构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/09/03/LHZYIe7m26gaPRN.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://andy-whb-cn.github.io/2024/09/03/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/SOA%E6%9E%B6%E6%9E%84%20vs%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Andy&#39;s Note" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/andy-whb-cn" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Andy</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Programmer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/andy-whb-cn" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/" rel="tag">Flink</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A5%E5%8F%A3/" rel="tag">接口</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%84%9A%E6%9C%AC/" rel="tag">脚本</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Flink/" style="font-size: 13px;">Flink</a> <a href="/tags/Java/" style="font-size: 13.5px;">Java</a> <a href="/tags/SpringBoot/" style="font-size: 13.75px;">SpringBoot</a> <a href="/tags/Vue/" style="font-size: 13.25px;">Vue</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.25px;">前端</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 13.75px;">微服务</a> <a href="/tags/%E6%8E%A5%E5%8F%A3/" style="font-size: 13px;">接口</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 14px;">架构</a> <a href="/tags/%E8%84%9A%E6%9C%AC/" style="font-size: 13px;">脚本</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/09/03/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/SOA%E6%9E%B6%E6%9E%84%20vs%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" class="title">SOA架构vs微服务架构</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-09-03T01:30:00.000Z" itemprop="datePublished">2024-09-03</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/09/02/SpringBoot/SpringBoot%EF%BC%9A%E6%89%A9%E5%B1%95%E7%82%B9/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-09-02T11:02:01.624Z" itemprop="datePublished">2024-09-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/09/02/%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1/%E9%9D%A2%E5%90%91%E6%8E%A5%E5%8F%A3%EF%BC%9A%E9%99%90%E6%B5%81/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-09-02T10:58:29.715Z" itemprop="datePublished">2024-09-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/09/02/SpringBoot/SpringBoot%EF%BC%9AGraphQL/" class="title">SpringBoot GraphQL</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-09-02T10:36:22.017Z" itemprop="datePublished">2024-09-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/09/02/SpringBoot/SpringBoot%EF%BC%9A%E5%AE%B9%E5%99%A8%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96/" class="title">SpringBoot: 启动参数</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-09-02T09:02:25.399Z" itemprop="datePublished">2024-09-02</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-架构设计/SOA架构 vs 微服务架构" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SOA架构vs微服务架构
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/09/03/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/SOA%E6%9E%B6%E6%9E%84%20vs%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" class="article-date">
+	  <time datetime="2024-09-03T01:30:00.000Z" itemprop="datePublished">2024-09-03</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/09/03/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/SOA%E6%9E%B6%E6%9E%84%20vs%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>SOA架构和微服务架构最主要的区别：面向的范围不同。<br>SOA架构主要面向企业级服务，微服务架构主要面向应用级服务<br><img src="https://s2.loli.net/2024/09/03/LHZYIe7m26gaPRN.png" alt="image.png"><br>典型的微服务架构：<br><img src="https://s2.loli.net/2024/09/03/iyrj3mZq5x8XSTv.png" alt="image.png"><br>基础原则：</p>
+<ul>
+<li>服务自治：每个服务都拥有独立的数据库和功能，可以独立开发和部署。</li>
+<li>去中心化的数据管理：强调服务的数据自主性，减少数据耦合，解决在单体应用中可能出现的数据一致性问题。</li>
+<li>技术的异质性：每个服务可以选择最适合的技术栈开发，提升效率和创新。<br>挑战：</li>
+<li>分布式服务的复杂性：服务发现、负载均衡、网络延迟、调试和测试。</li>
+<li>跨服务数据一致性问题：每个服务都有自己的数据库，数据的完整性和一致性变得复杂，分布式事务比较麻烦且有潜在的性能影响。</li>
+<li>业务处理的复杂性：依赖于微服务的良好设计和实现。</li>
+<li>监控的必要性：依赖于监控解决方案发现性能瓶颈、错误、异常。</li>
+</ul>
+<p>典型的SOA架构：<br><img src="https://s2.loli.net/2024/09/03/VKqOLTi1uNY3tjZ.png" alt="image.png"></p>
+<p>SOA架构可以认为是一种强调模块化和互用性的基础方法。<br>SOA架构图描绘的是互相连接的组件组成系统的结构：</p>
+<ul>
+<li>Servcie: 完成特定业务功能的服务</li>
+<li>Service Repository: 中心化的服务目录，便于服务发现和使用</li>
+<li>FrontEnd: 用户接口层，通过契约(Contracts)和服务交互</li>
+<li>Service Bus: 用于服务间通讯，建立消息交换。</li>
+<li>Contract: 定义服务的交互契约，促使松耦合</li>
+<li>Interface: 对外暴露服务功能<br>基本原则：</li>
+</ul>
+<ul>
+<li>复用性：模块化的服务，并且可以被多个应用复用。</li>
+<li>可发现性：服务注册。</li>
+<li>可组合性：可以支持任意方法进行服务的组合。</li>
+<li>松耦合：服务之间互相独立，通过标准接口进行通信。<br>挑战：</li>
+<li>服务的版本和兼容性</li>
+<li>数据的完整性和一致性</li>
+<li>业务处理的复杂性</li>
+</ul>
+<h2 id="其他差异：SOA-与微服务"><a href="#其他差异：SOA-与微服务" class="headerlink" title="其他差异：SOA 与微服务"></a>其他差异：SOA 与微服务</h2><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>SOA</strong></th>
+<th><strong>微服务</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实施</td>
+<td>共享资源的不同服务。</td>
+<td>独立且针对特定用途的小型服务。</td>
+</tr>
+<tr>
+<td>交流</td>
+<td>ESB 使用多种消息协议，例如 SOAP、AMQP 和 MSMQ。</td>
+<td>API、Java 消息服务、发布&#x2F;订阅</td>
+</tr>
+<tr>
+<td>数据存储</td>
+<td>共享数据存储。</td>
+<td>独立的数据存储。</td>
+</tr>
+<tr>
+<td>部署</td>
+<td>具有挑战性。细微更改也需要全面重构。</td>
+<td>易于部署。每个微服务都可以容器化。</td>
+</tr>
+<tr>
+<td>可重用性</td>
+<td>通过共享公共资源提供可重复使用的服务。</td>
+<td>每项服务都有自己的独立资源。您可以通过微服务的 API 重复使用微服务。</td>
+</tr>
+<tr>
+<td>速度</td>
+<td>速度会随着服务增多而减慢。</td>
+<td>可在流量增长时保持稳定的速度。</td>
+</tr>
+<tr>
+<td>治理灵活性</td>
+<td>跨所有服务进行一致的数据治理。</td>
+<td>针对每种存储采用不同的数据治理策略。</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://andy-whb-cn.github.io/2024/09/03/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/SOA%E6%9E%B6%E6%9E%84%20vs%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" title="SOA架构vs微服务架构" target="_blank" rel="external">https://andy-whb-cn.github.io/2024/09/03/架构设计/SOA架构 vs 微服务架构/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/andy-whb-cn" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/andy-whb-cn" target="_blank"><span class="text-dark">Andy</span><small class="ml-1x">Programmer</small></a></h3>
+        <div>作者简介</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <script src="https://giscus.app/client.js"
+        data-repo="andy-whb-cn/andy-whb-cn.github.io"
+        data-repo-id="R_kgDOL1M-tw"
+        data-category=""
+        data-category-id="DIC_kwDOL1M-t84Ch813"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light_protanopia"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2024/09/02/SpringBoot/SpringBoot%EF%BC%9A%E6%89%A9%E5%B1%95%E7%82%B9/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/andy-whb-cn" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+
+       
+
+
+
+
+
+
+
+</body>
+</html>
