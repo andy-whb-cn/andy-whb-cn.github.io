@@ -17,10 +17,10 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Andy&#39;s Note</title>
+  <title>SpringBoot 扩展点 | Andy&#39;s Note</title>
   <meta name="description" content="背景Spring的核心思想就是容器，当容器refresh的时候，外部看上去风平浪静，其实内部则是一片惊涛骇浪，汪洋一片。Springboot更是封装了Spring，遵循约定大于配置，加上自动装配的机制。很多时候我们只要引用了一个依赖，几乎是零配置就能完成一个功能的装配。 我非常喜欢这种自动装配的机制，所以在自己开发中间件和公共依赖工具的时候也会用到这个特性。让使用者以最小的代价接入。想要把自动装配">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Andy&#39;s Note">
+<meta property="og:title" content="SpringBoot 扩展点">
 <meta property="og:url" content="https://andy-whb-cn.github.io/2024/09/02/SpringBoot/SpringBoot%EF%BC%9A%E6%89%A9%E5%B1%95%E7%82%B9/index.html">
 <meta property="og:site_name" content="Andy&#39;s Note">
 <meta property="og:description" content="背景Spring的核心思想就是容器，当容器refresh的时候，外部看上去风平浪静，其实内部则是一片惊涛骇浪，汪洋一片。Springboot更是封装了Spring，遵循约定大于配置，加上自动装配的机制。很多时候我们只要引用了一个依赖，几乎是零配置就能完成一个功能的装配。 我非常喜欢这种自动装配的机制，所以在自己开发中间件和公共依赖工具的时候也会用到这个特性。让使用者以最小的代价接入。想要把自动装配">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/PxMzT0Oibf4hB8nHklbQwqMicuD3lsDSHljEIJQOP11Js5oYzt3OgtNuiapvoCnUibkLbINdd3XaHN0S9UoOS3lgzw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
 <meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/6mychickmupWaHkLLxnI5CWkzPIFHHvKmOJASx9aLomwLG0cCsBbJCuicuwfdYX0qo8fYbSLSzWKaSictUTXoGH1A/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1&tp=webp">
 <meta property="article:published_time" content="2024-09-02T11:02:01.624Z">
-<meta property="article:modified_time" content="2024-09-02T11:02:20.069Z">
+<meta property="article:modified_time" content="2024-09-03T02:34:56.218Z">
 <meta property="article:author" content="Andy">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/PxMzT0Oibf4hB8nHklbQwqMicuD3lsDSHljEIJQOP11Js5oYzt3OgtNuiapvoCnUibkLbINdd3XaHN0S9UoOS3lgzw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
@@ -251,7 +251,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2024/09/02/SpringBoot/SpringBoot%EF%BC%9A%E6%89%A9%E5%B1%95%E7%82%B9/" class="title">(no title)</a>
+                <a href="/2024/09/02/SpringBoot/SpringBoot%EF%BC%9A%E6%89%A9%E5%B1%95%E7%82%B9/" class="title">SpringBoot 扩展点</a>
               </p>
               <p class="item-date">
                 <time datetime="2024-09-02T11:02:01.624Z" itemprop="datePublished">2024-09-02</time>
@@ -266,7 +266,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2024/09/02/%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1/%E9%9D%A2%E5%90%91%E6%8E%A5%E5%8F%A3%EF%BC%9A%E9%99%90%E6%B5%81/" class="title">(no title)</a>
+                <a href="/2024/09/02/%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1/%E9%9D%A2%E5%90%91%E6%8E%A5%E5%8F%A3%EF%BC%9A%E9%99%90%E6%B5%81/" class="title">面向接口：限流</a>
               </p>
               <p class="item-date">
                 <time datetime="2024-09-02T10:58:29.715Z" itemprop="datePublished">2024-09-02</time>
@@ -296,7 +296,7 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2024/09/02/SpringBoot/SpringBoot%EF%BC%9A%E5%AE%B9%E5%99%A8%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96/" class="title">SpringBoot: 启动参数</a>
+                <a href="/2024/09/02/SpringBoot/SpringBoot%EF%BC%9A%E5%AE%B9%E5%99%A8%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96/" class="title">SpringBoot启动参数</a>
               </p>
               <p class="item-date">
                 <time datetime="2024-09-02T09:02:25.399Z" itemprop="datePublished">2024-09-02</time>
@@ -320,6 +320,14 @@
   <article id="post-SpringBoot/SpringBoot：扩展点" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SpringBoot 扩展点
+    </h1>
+  
+
       
       <div class="article-meta">
         <span class="article-date">
@@ -524,7 +532,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://andy-whb-cn.github.io/2024/09/02/SpringBoot/SpringBoot%EF%BC%9A%E6%89%A9%E5%B1%95%E7%82%B9/" title="" target="_blank" rel="external">https://andy-whb-cn.github.io/2024/09/02/SpringBoot/SpringBoot：扩展点/</a>
+      <a href="https://andy-whb-cn.github.io/2024/09/02/SpringBoot/SpringBoot%EF%BC%9A%E6%89%A9%E5%B1%95%E7%82%B9/" title="SpringBoot 扩展点" target="_blank" rel="external">https://andy-whb-cn.github.io/2024/09/02/SpringBoot/SpringBoot：扩展点/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -590,7 +598,7 @@
     
     
     <li class="next">
-      <a href="/2024/09/02/%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1/%E9%9D%A2%E5%90%91%E6%8E%A5%E5%8F%A3%EF%BC%9A%E9%99%90%E6%B5%81/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2024/09/02/%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1/%E9%9D%A2%E5%90%91%E6%8E%A5%E5%8F%A3%EF%BC%9A%E9%99%90%E6%B5%81/" title="面向接口：限流"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
