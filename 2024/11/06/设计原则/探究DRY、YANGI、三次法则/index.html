@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Andy&#39;s Note</title>
+  <meta name="description" content="在日常开发工作中，我们常常会遇到一些使得代码变得冗余、复杂甚至难以维护的情况。为了应对这些问题，软件工程界提出了许多原则和方法来指导我们的编程实践。 其中，DRY原则、YAGNI原则和三次法则是我们编程过程中常常需要用到的三个重要原则。那么，这些原则具体是什么含义，又应该如何在实际开发中运用呢？下面就让我们一起来探讨。  DRY原则：追求高效，摒弃重复软件工程名著《The Pragmatic Pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Andy&#39;s Note">
+<meta property="og:url" content="https://andy-whb-cn.github.io/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6DRY%E3%80%81YANGI%E3%80%81%E4%B8%89%E6%AC%A1%E6%B3%95%E5%88%99/index.html">
+<meta property="og:site_name" content="Andy&#39;s Note">
+<meta property="og:description" content="在日常开发工作中，我们常常会遇到一些使得代码变得冗余、复杂甚至难以维护的情况。为了应对这些问题，软件工程界提出了许多原则和方法来指导我们的编程实践。 其中，DRY原则、YAGNI原则和三次法则是我们编程过程中常常需要用到的三个重要原则。那么，这些原则具体是什么含义，又应该如何在实际开发中运用呢？下面就让我们一起来探讨。  DRY原则：追求高效，摒弃重复软件工程名著《The Pragmatic Pr">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://developer.qcloudimg.com/http-save/yehe-1242469/7ede31094a7f06f9f608f81947fc46a4.png?imageView2/2/w/591">
+<meta property="article:published_time" content="2024-11-06T01:19:05.933Z">
+<meta property="article:modified_time" content="2024-11-06T01:35:33.124Z">
+<meta property="article:author" content="Andy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developer.qcloudimg.com/http-save/yehe-1242469/7ede31094a7f06f9f608f81947fc46a4.png?imageView2/2/w/591">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://andy-whb-cn.github.io/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6DRY%E3%80%81YANGI%E3%80%81%E4%B8%89%E6%AC%A1%E6%B3%95%E5%88%99/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Andy&#39;s Note" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/andy-whb-cn" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Andy</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Programmer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/andy-whb-cn" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/" rel="tag">Flink</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A5%E5%8F%A3/" rel="tag">接口</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%84%9A%E6%9C%AC/" rel="tag">脚本</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Flink/" style="font-size: 13px;">Flink</a> <a href="/tags/Java/" style="font-size: 13.4px;">Java</a> <a href="/tags/SpringBoot/" style="font-size: 13.8px;">SpringBoot</a> <a href="/tags/Vue/" style="font-size: 13.2px;">Vue</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.2px;">前端</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 13px;">安全</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 13.6px;">微服务</a> <a href="/tags/%E6%8E%A5%E5%8F%A3/" style="font-size: 13px;">接口</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 14px;">架构</a> <a href="/tags/%E8%84%9A%E6%9C%AC/" style="font-size: 13px;">脚本</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/11/06/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/%E6%8E%A2%E7%A9%B6CAP%E3%80%81PACELC%E3%80%81BASE%E7%90%86%E8%AE%BA/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-11-06T09:22:10.177Z" itemprop="datePublished">2024-11-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-11-06T07:54:50.869Z" itemprop="datePublished">2024-11-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6%E6%9E%B6%E6%9E%84%E7%90%86%E8%AE%BA%E7%9A%84%E6%BC%94%E8%BF%9B%EF%BC%88%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E6%9E%B6%E6%9E%84%EF%BC%89/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-11-06T03:23:04.498Z" itemprop="datePublished">2024-11-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6KISS%E5%8E%9F%E5%88%99/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-11-06T02:34:35.950Z" itemprop="datePublished">2024-11-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%88SOLID%E5%8E%9F%E5%88%99%EF%BC%89/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-11-06T01:38:49.403Z" itemprop="datePublished">2024-11-06</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-设计原则/探究DRY、YANGI、三次法则" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6DRY%E3%80%81YANGI%E3%80%81%E4%B8%89%E6%AC%A1%E6%B3%95%E5%88%99/" class="article-date">
+	  <time datetime="2024-11-06T01:19:05.933Z" itemprop="datePublished">2024-11-06</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6DRY%E3%80%81YANGI%E3%80%81%E4%B8%89%E6%AC%A1%E6%B3%95%E5%88%99/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>在日常开发工作中，我们常常会遇到一些使得代码变得冗余、复杂甚至难以维护的情况。为了应对这些问题，软件工程界提出了许多原则和方法来指导我们的编程实践。</p>
+<p>其中，DRY原则、YAGNI原则和三次法则是我们编程过程中常常需要用到的三个重要原则。那么，这些原则具体是什么含义，又应该如何在实际开发中运用呢？下面就让我们一起来探讨。</p>
+<p><img src="https://developer.qcloudimg.com/http-save/yehe-1242469/7ede31094a7f06f9f608f81947fc46a4.png?imageView2/2/w/591"></p>
+<h4 id="DRY原则：追求高效，摒弃重复"><a href="#DRY原则：追求高效，摒弃重复" class="headerlink" title="DRY原则：追求高效，摒弃重复"></a>DRY原则：追求高效，摒弃重复</h4><p>软件工程名著《<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/The_Pragmatic_Programmer">The Pragmatic Programmer</a> | <a target="_blank" rel="noopener" href="http://www.amazon.cn/gp/product/B005UP9PJM/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&tag=vastwork-23&linkCode=as2&camp=536&creative=3200&creativeASIN=B005UP9PJM" title="程序员修炼之道:从小工到专家">程序员修炼之道</a>:从小工到专家》首先提出这一原则。</p>
+<p>DRY，全称”Don’t Repeat Yourself”，翻译为中文就是”不要重复自己”，这个原则有时也称作“一次且仅一次“原则（Once and Only Once)。这是一种追求高效、优雅的编程原则。根据DRY原则，任何形式的信息重复都应当被消除。在实际的编程中，如果同一个逻辑出现在两个或更多的地方，那么我们就需要考虑将这部分逻辑抽象出来，避免重复代码。</p>
+<p>DRY原则的优点在于，它能提高代码的可读性和可维护性，降低代码的复杂度，从而提高整个软件的质量。比如，当我们需要修改某一逻辑时，只需要在一个地方修改即可，无需在多个地方做同样的修改，大大提高了代码的维护性。</p>
+<h4 id="YAGNI原则：聚焦现在，摒弃过度设计"><a href="#YAGNI原则：聚焦现在，摒弃过度设计" class="headerlink" title="YAGNI原则：聚焦现在，摒弃过度设计"></a>YAGNI原则：聚焦现在，摒弃过度设计</h4><p>这是<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Extreme_programming">“极限编程”</a>提倡的原则,  指导思想，就是尽可能快、尽可能简单地让软件运行起来（do the simplest thing that could possibly work）。</p>
+<p>YAGNI，全称”You Aren’t Gonna Need It”，翻译为中文就是”你不会需要它”。这个原则鼓励我们抵制过度设计的诱惑，只关注当前真正需要的功能，而不是那些”可能”在未来会用到的功能。</p>
+<p>在软件开发过程中，我们常常会受到”可能会用到”这种假设的诱惑，这导致我们花费大量的时间和精力去实现那些实际上并不需要的功能，而这些功能反而增加了代码的复杂度，降低了软件的可维护性。因此，YAGNI原则告诉我们，除非确定需要某个功能，否则就不要去实现它。</p>
+<p>DRY原则和YAGNI原则并非完全兼容。前者追求”抽象化”，要求找到通用的解决方法；后者追求”快和省”，意味着不要把精力放在抽象化上面，因为很可能”你不会需要它”。于是就有了第三个原则”三次法则“。</p>
+<h4 id="三次法则：提炼抽象，追求优雅"><a href="#三次法则：提炼抽象，追求优雅" class="headerlink" title="三次法则：提炼抽象，追求优雅"></a>三次法则：提炼抽象，追求优雅</h4><p><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Rule_of_three_(computer_programming)">Rule of three</a> 称为”三次原则”，指的是当某个功能第三次出现时，才进行”抽象化”。这是软件开发大家<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Martin_Fowler">Martin Fowler</a>在《Refactoring | <a target="_blank" rel="noopener" href="http://www.amazon.cn/gp/product/B003BY6PLK/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&tag=vastwork-23&linkCode=as2&camp=536&creative=3200&creativeASIN=B003BY6PLK" title="重构:改善既有代码的设计">重构</a>》一书中提出的。</p>
+<p>三次法则，是一种关于何时应该重构或抽象代码的原则。它告诉我们，如果你做了一次相同的事情，那就继续；如果你做了两次相同的事情，那就稍微有点耐心；如果你做了三次相同的事情，那么你应该重构或抽象它。</p>
+<p>实际上，这个法则是DRY原则的一个具体实践。当我们在代码中发现重复的逻辑时，可能是时候考虑进行抽象了。这样，当我们需要修改这部分逻辑时，只需要在一个地方进行修改即可，而不需要在多个地方进行相同的修改。</p>
+<h4 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h4><p>软件开发是一项复杂的工作，需要我们不断学习和实践。DRY原则、YAGNI原则和三次法则，都是我们在编程实践中需要掌握的重要原则。通过运用这些原则，我们可以写出更高质量的代码，构建出更优秀的软件。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://andy-whb-cn.github.io/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6DRY%E3%80%81YANGI%E3%80%81%E4%B8%89%E6%AC%A1%E6%B3%95%E5%88%99/" title="" target="_blank" rel="external">https://andy-whb-cn.github.io/2024/11/06/设计原则/探究DRY、YANGI、三次法则/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/andy-whb-cn" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/andy-whb-cn" target="_blank"><span class="text-dark">Andy</span><small class="ml-1x">Programmer</small></a></h3>
+        <div>作者简介</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <script src="https://giscus.app/client.js"
+        data-repo="andy-whb-cn/andy-whb-cn.github.io"
+        data-repo-id="R_kgDOL1M-tw"
+        data-category=""
+        data-category-id="DIC_kwDOL1M-t84Ch813"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light_protanopia"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%88SOLID%E5%8E%9F%E5%88%99%EF%BC%89/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/09/06/%E8%AE%A4%E8%AF%81%E9%89%B4%E6%9D%83/Spring%20Security%20vs%20Shiro/" title="安全框架 Spring Security vs Shiro"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/andy-whb-cn" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+
+       
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Andy&#39;s Note</title>
+  <meta name="description" content="分层架构（Layered Architecture）： 提出者：不详 提出时间：最早应用于1960年代的网络协议设计，软件架构中广泛应用则是后来随着软件工程的发展逐渐形成的。 特点：将软件系统划分为多个逻辑层，每一层具有特定的职责和功能。   MVC 架构： 提出者：Trygve Reenskaug  提出时间：1979年 提出方式：用于解决桌面图形用户界面（GUI）的设计 特点：MVC 将应用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Andy&#39;s Note">
+<meta property="og:url" content="https://andy-whb-cn.github.io/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6%E6%9E%B6%E6%9E%84%E7%90%86%E8%AE%BA%E7%9A%84%E6%BC%94%E8%BF%9B%EF%BC%88%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E6%9E%B6%E6%9E%84%EF%BC%89/index.html">
+<meta property="og:site_name" content="Andy&#39;s Note">
+<meta property="og:description" content="分层架构（Layered Architecture）： 提出者：不详 提出时间：最早应用于1960年代的网络协议设计，软件架构中广泛应用则是后来随着软件工程的发展逐渐形成的。 特点：将软件系统划分为多个逻辑层，每一层具有特定的职责和功能。   MVC 架构： 提出者：Trygve Reenskaug  提出时间：1979年 提出方式：用于解决桌面图形用户界面（GUI）的设计 特点：MVC 将应用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/11/06/3giEet1f8InTHS9.png">
+<meta property="article:published_time" content="2024-11-06T03:23:04.498Z">
+<meta property="article:modified_time" content="2024-11-06T07:34:13.971Z">
+<meta property="article:author" content="Andy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/11/06/3giEet1f8InTHS9.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://andy-whb-cn.github.io/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6%E6%9E%B6%E6%9E%84%E7%90%86%E8%AE%BA%E7%9A%84%E6%BC%94%E8%BF%9B%EF%BC%88%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E6%9E%B6%E6%9E%84%EF%BC%89/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Andy&#39;s Note" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/andy-whb-cn" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Andy</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Programmer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/andy-whb-cn" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/" rel="tag">Flink</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A5%E5%8F%A3/" rel="tag">接口</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%84%9A%E6%9C%AC/" rel="tag">脚本</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Flink/" style="font-size: 13px;">Flink</a> <a href="/tags/Java/" style="font-size: 13.4px;">Java</a> <a href="/tags/SpringBoot/" style="font-size: 13.8px;">SpringBoot</a> <a href="/tags/Vue/" style="font-size: 13.2px;">Vue</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.2px;">前端</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 13px;">安全</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 13.6px;">微服务</a> <a href="/tags/%E6%8E%A5%E5%8F%A3/" style="font-size: 13px;">接口</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 14px;">架构</a> <a href="/tags/%E8%84%9A%E6%9C%AC/" style="font-size: 13px;">脚本</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/11/06/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/%E6%8E%A2%E7%A9%B6CAP%E3%80%81PACELC%E3%80%81BASE%E7%90%86%E8%AE%BA/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-11-06T09:22:10.177Z" itemprop="datePublished">2024-11-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-11-06T07:54:50.869Z" itemprop="datePublished">2024-11-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6%E6%9E%B6%E6%9E%84%E7%90%86%E8%AE%BA%E7%9A%84%E6%BC%94%E8%BF%9B%EF%BC%88%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E6%9E%B6%E6%9E%84%EF%BC%89/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-11-06T03:23:04.498Z" itemprop="datePublished">2024-11-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6KISS%E5%8E%9F%E5%88%99/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-11-06T02:34:35.950Z" itemprop="datePublished">2024-11-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%88SOLID%E5%8E%9F%E5%88%99%EF%BC%89/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-11-06T01:38:49.403Z" itemprop="datePublished">2024-11-06</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-设计原则/探究架构理论的演进（领域驱动架构）" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6%E6%9E%B6%E6%9E%84%E7%90%86%E8%AE%BA%E7%9A%84%E6%BC%94%E8%BF%9B%EF%BC%88%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E6%9E%B6%E6%9E%84%EF%BC%89/" class="article-date">
+	  <time datetime="2024-11-06T03:23:04.498Z" itemprop="datePublished">2024-11-06</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6%E6%9E%B6%E6%9E%84%E7%90%86%E8%AE%BA%E7%9A%84%E6%BC%94%E8%BF%9B%EF%BC%88%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E6%9E%B6%E6%9E%84%EF%BC%89/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <ul>
+<li><strong>分层架构（Layered Architecture）</strong>：<ul>
+<li>提出者：不详</li>
+<li>提出时间：最早应用于1960年代的网络协议设计，软件架构中广泛应用则是后来随着软件工程的发展逐渐形成的。</li>
+<li>特点：将软件系统划分为多个逻辑层，每一层具有特定的职责和功能。</li>
+</ul>
+</li>
+<li><strong>MVC 架构</strong>：<ul>
+<li>提出者：Trygve Reenskaug </li>
+<li>提出时间：1979年</li>
+<li>提出方式：用于解决桌面图形用户界面（GUI）的设计</li>
+<li>特点：MVC 将应用程序分为三个主要部分，使得逻辑、数据和界面分开，便于管理和维护，在现代的web程序开发中被广泛应用。</li>
+</ul>
+</li>
+<li><strong>EIC（Entity-Interface-Control）：</strong><ul>
+<li>提出者：Ivar Jacobson</li>
+<li>提出时间：1992年</li>
+<li>特点：Robert C. Martin在做整洁架构演讲时，避免和其他概念混淆，将其调整为EBI（Entity-Boundary-Interacter，名词调整）。EBI模式相比MVC模式更加关注后端，两者可以融合，融合后就变成了View-Controller-Interacter-Entity。EBI 架构通过职责的封装将系统的变化控制在局部，最好是一个对象，符合单一职责原则。EBI的矩形边界为4，若修改为6，即可演进为2005年的六边形架构。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>领域驱动设计（Domain-Driven Design, DDD）</strong>：<ul>
+<li>提出者：埃里克·埃文斯（Eric Evans）</li>
+<li>提出时间：2003年</li>
+<li>著作：在《领域驱动设计》中引入分层架构，希望分离领域。这意味着该模式本身是作用在整个系统层次。</li>
+<li>核心理念：重视将实际业务问题映射到软件设计中，以解决复杂业务场景带来的软件开发问题。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>六边形架构（Hexagonal Architecture）</strong>：<ul>
+<li>提出者：Alistair Cockburn </li>
+<li>提出时间：2005年 </li>
+<li>著作：Vaughn Vernon 在《实现领域驱动设计》一书中，将 Alistair Cockburn 提出的六边形架构（Haxagonal Architecture）引入到领域驱动设计中，并将其与限界上下文结合在一起，清晰地体现了它内部的视图。这一模式的引入，实际上代表着限界上下文在架构中的核心地位。限界上下文改变了系统架构的逻辑视图，领域层的抽取则意味着领域对设计的驱动力，二者的结合可以形成一种新的架构风格，既“<strong>领域驱动架构（Domain Driven Architecture）</strong>”</li>
+<li>特点：基于EIC，几边形不是重点，重点是提出端口&amp;适配器的概念。</li>
+<li>核心理念：将应用程序分为内六边形和外六边形两层，内六边形实现应用的核心业务逻辑。外六边形完成外部应用、基础资源等的交互和访问。</li>
+</ul>
+</li>
+<li><strong>洋葱架构（Onion Architecture）</strong>：<ul>
+<li>提出者：Jeffrey Palermo </li>
+<li>提出时间：2008年 </li>
+<li>特点：基于六边形架构，结合DDD对内层进一步划分，形成Adapters和Application Core，且明确了依赖方向。</li>
+<li>核心理念：通过同心圆的方式将应用程序划分为多个层次，强调依赖关系向内指向领域模型。外层依赖于内层，内层不需要知道外层的情况。</li>
+</ul>
+</li>
+<li><strong>CQRS（Command Query Responsibility Segregation）设计模式</strong>：<ul>
+<li>提出者：Greg Young</li>
+<li>提出时间：2010 年</li>
+<li>特点：这种模式将系统中的命令（写入操作）和查询（读取操作）的职责分离开来。其核心理念来源于 Bertrand Meyer 的 CQS（Command Query Separation）设计模式，它建议将对象的方法分为两类：一类是改变对象状态但不返回任何内容的命令（Command），另一类是返回信息但不改变对象状态的查询（Query）。适用CQRS需要慎重考虑，对于只具有简单域的简单项目，其UI模型与域模型紧密联系的，使用CQRS会增加项目的复杂度和冗余度，无疑是过度设计。另外，对于数据量较少或者性能要求较低的项目实施CQRS模式不会带来显著的性能提升。</li>
+<li>优点：<ul>
+<li>可扩展性：CQRS 允许独立扩展读写操作，这在读写负载差异较大的系统中尤其有用</li>
+<li>灵活性：命令和查询是分开的，因此可以独立优化数据存储和检索策略</li>
+<li>可维护性：通过分离关注点来简化代码库，使得命令和查询不会相互干扰</li>
+<li>安全性：可以对读写操作应用不同的安全机制，确保只有授权用户才能进行更改</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>复杂性：需要管理命令模型和查询模型之间的数据流</li>
+<li>学习曲线：不熟悉 CQRS 的开发人员在采用该模式时可能会面临重新学习的问题</li>
+<li>最终一致性：可能会导致最终的一致性，即查询模型可能无法立即反映命令所做的最新更改</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>ES(Event Sourcing) 设计模式</strong>:<ul>
+<li>提出者：并没有一个明确的“提出者”，因为它是一个逐渐发展起来的概念。</li>
+<li>提出时间：Event Sourcing 的概念与实现随着领域驱动设计（Domain-Driven Design, DDD）的流行而得到更广泛的关注。</li>
+<li>适用场合：<ul>
+<li>复杂业务逻辑：当应用程序的业务逻辑非常复杂，需要详细记录每个业务操作的历史时。</li>
+<li>审计和合规性：需要能够追溯和审计业务操作的历史，以满足合规性要求。</li>
+<li>分布式系统：在分布式系统中，事件 Sourcing 可以帮助保持不同服务之间的数据一致性</li>
+<li>微服务架构：在微服务架构中，每个服务可以维护自己的事件日志，从而解耦服务并提高系统的可维护性。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>开发思维的转变：面向对象思维转变为基于事件的响应式编程思维</li>
+<li>没有成熟完善的框架：没有一个大而一统的框架来实现 Event Sourcing 模式</li>
+<li>事件结构的改变：业务的变化可能需要修改事件的结构，这可能会带来兼容性问题</li>
+<li>领域模型角度设计系统：需要以领域模型为基础设计系统，而不是以数据库表为基础</li>
+</ul>
+</li>
+<li>架构组件<ul>
+<li>事件存储（Event Store）：事件被保存在一个不可变的、追加的、按时间顺序排列的存储库或数据存储中。</li>
+<li>事件处理（Event Processor）：处理事件并更新系统状态。</li>
+<li>事件消费者（Event Consumer）：消费事件并执行基于事件内容的逻辑</li>
+</ul>
+</li>
+<li>ES的实现：<ul>
+<li>事件存储：事件被保存在一个不可变的、追加的、按时间顺序排列的存储库或数据存储中。</li>
+<li>事件重放：通过按时间顺序重放事件日志中的事件来重构应用程序的当前状态。</li>
+<li>事件版本控制：随着服务的演变，事件的结构（模式）可以变化，需要实现事件版本控制策略以确保向后和向前兼容。</li>
+</ul>
+</li>
+<li>关联参考：<strong>Revo</strong>，<strong>EventStoreDB</strong>，<strong>Axon Framework</strong>，<strong>Lagom</strong>， <strong>Apache Kafka</strong>，<strong>PostgreSQL</strong></li>
+</ul>
+</li>
+<li><strong>整洁架构（Clean Architecture）</strong>：<ul>
+<li>提出者：Robert C. Martin（Uncle Bob）</li>
+<li>提出时间：2012年</li>
+<li>著作：《整洁架构之道》</li>
+<li>特点：整合EBI（Entity-Boundary-Interacter，Robert C. Martin基于EIC提出）、六边形架构、洋葱架构成为一个可以实际落地的架构。与洋葱架构相比，整洁架构将Application Services调整为Use Cases， Domain Services, Domain Model调整为Entities。整洁架构并没有带来突破性的概念或模式，但是它带澄清了概念、规则和模式，并构建了复杂应用并保持可维护性的标准套路。整洁架构适用于需要长期维护和频繁更新的复杂项目，如腾讯文档、VS Code 内核、低代码引擎等。对于业务逻辑简单、业务生命周期较短的项目，直接使用整洁架构可能会导致开发效率降低</li>
+<li>核心理念：围绕独立的对象模型构建应用，内层定义接口，外层实现接口。依赖的方向指向圆心。</li>
+</ul>
+</li>
+<li><strong>菱形架构（Rhombic Symmetric Architecture）</strong>：<ul>
+<li>提出者：张逸</li>
+<li>提出时间：2017年 </li>
+<li>著作：《解构领域驱动设计》</li>
+<li>网站：<a target="_blank" rel="noopener" href="http://zhangyi.xyz/rhombic-symmetric-architecture/">http://zhangyi.xyz/rhombic-symmetric-architecture/</a></li>
+<li>核心理念：结合了六边形架构、分层架构、整洁架构的知识，并结合了领域驱动设计的元模型，使其能够更好地运用到限界上下文的架构设计中。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>清晰架构（Explicit Architecture）</strong><ul>
+<li>提出者：Herberto Graca</li>
+</ul>
+<p> </p>
+<ul>
+<li>提出时间：2017年 </li>
+<li>著作：《软件架构编年史》</li>
+<li>特点：清晰架构融合了领域驱动设计（DDD）、六边形架构、洋葱架构、整洁架构和CQRS等概念。它强调明确的职责和依赖关系，将系统划分为不同的职责区域，并明确它们之间的交互方式和依赖关系。这种架构有助于减少代码的耦合度，提高系统的可维护性和可扩展性，适用于对可维护性、可测试性和可扩展性有高度要求的复杂应用程序。</li>
+<li>优点：<ul>
+<li>可维护性：分离核心业务逻辑与外部框架、数据库和 UI，修改测试各组件更容易。</li>
+<li>模块化：分层使得代码库更易于维护和扩展。</li>
+<li>独立性：业务逻辑与外部框架或库的独立性允许开发者替换或升级框架而不影响应用程序的核心功能。</li>
+<li>测试覆盖率：鼓励编写隔离的单元测试，便于测试覆盖率和早期捕捉错误。</li>
+<li>可扩展性：模块化设计简化了新功能的添加或现有功能的移除。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>过度工程：引入过多的复杂性，对于小型工程或原型项目不适用。</li>
+<li>学习曲线：团队成员可能需要时间来理解和适应架构原则。</li>
+<li>开发成本：清晰架构可能比传统方法需要更多的开发时间和工作量。</li>
+<li>性能影响：通过接口和依赖注入实现松散耦合可能会引入轻微的性能影响。</li>
+<li>灵活性：严格遵循架构原则有时可能限制灵活性和适应性。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>领域驱动架构理论发展演进路径图：<br><img src="https://s2.loli.net/2024/11/06/3giEet1f8InTHS9.png" alt="image.png"></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://andy-whb-cn.github.io/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6%E6%9E%B6%E6%9E%84%E7%90%86%E8%AE%BA%E7%9A%84%E6%BC%94%E8%BF%9B%EF%BC%88%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E6%9E%B6%E6%9E%84%EF%BC%89/" title="" target="_blank" rel="external">https://andy-whb-cn.github.io/2024/11/06/设计原则/探究架构理论的演进（领域驱动架构）/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/andy-whb-cn" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/andy-whb-cn" target="_blank"><span class="text-dark">Andy</span><small class="ml-1x">Programmer</small></a></h3>
+        <div>作者简介</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <script src="https://giscus.app/client.js"
+        data-repo="andy-whb-cn/andy-whb-cn.github.io"
+        data-repo-id="R_kgDOL1M-tw"
+        data-category=""
+        data-category-id="DIC_kwDOL1M-t84Ch813"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light_protanopia"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84/" title="(no title)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6KISS%E5%8E%9F%E5%88%99/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/andy-whb-cn" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+
+       
+
+
+
+
+
+
+
+</body>
+</html>
