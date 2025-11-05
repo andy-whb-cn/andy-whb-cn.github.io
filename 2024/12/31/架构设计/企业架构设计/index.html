@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Andy&#39;s Note</title>
+  <meta name="description" content="埃森哲国内企业架构咨询案例：“四横五纵”架构设计“四横五纵”架构设计通过四个层次（策略层、管理层、设计层、实施层）和五个领域（业务架构、应用架构、数据架构、技术架构、架构管控）的系统化设计，确保企业IT系统与业务战略高度一致。通过自上而下的目标驱动和自下而上的实现反馈，构建出一个科学、合理的企业信息化蓝图，优化资源配置，提升企业灵活性和运营效率。 “四横”聚焦架构的分层设计，从战略到实施逐层细化；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Andy&#39;s Note">
+<meta property="og:url" content="https://andy-whb-cn.github.io/2024/12/31/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="Andy&#39;s Note">
+<meta property="og:description" content="埃森哲国内企业架构咨询案例：“四横五纵”架构设计“四横五纵”架构设计通过四个层次（策略层、管理层、设计层、实施层）和五个领域（业务架构、应用架构、数据架构、技术架构、架构管控）的系统化设计，确保企业IT系统与业务战略高度一致。通过自上而下的目标驱动和自下而上的实现反馈，构建出一个科学、合理的企业信息化蓝图，优化资源配置，提升企业灵活性和运营效率。 “四横”聚焦架构的分层设计，从战略到实施逐层细化；">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20241231105208457.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20241231105249902.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20241231105837602.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20241231105845730.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20241231105908873.jpg">
+<meta property="og:image" content="https://mmbiz.qpic.cn/sz_mmbiz_png/BInMRExFg4Wv8K9cp0kzIggDe8uab7VNxPZN3jvoeCvGCoIqSmqhm5tJkicDDzesoogsjic4bWzPfcjdXVWkWiaOg/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/sz_mmbiz_png/BInMRExFg4Wv8K9cp0kzIggDe8uab7VN031QWBP9grjht6DAQEeZfh0t7pyoqXmvNq4KVDcF4JMvkx15AVtB5A/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/sz_mmbiz_png/BInMRExFg4Wv8K9cp0kzIggDe8uab7VNmo2oTQDwfoVTlicl0VyXOPqPOrE0u8O67zMc75CqLzSxwwsUzibyUOTQ/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/sz_mmbiz_png/BInMRExFg4Wv8K9cp0kzIggDe8uab7VNSQFekTk8hCDQ2UyYJl5wVOjet9yyfyy7sgz65BiaIhItdg6DiafNk03g/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="article:published_time" content="2024-12-31T02:51:55.120Z">
+<meta property="article:modified_time" content="2024-12-31T03:04:04.271Z">
+<meta property="article:author" content="Andy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://andy-whb-cn.github.io/image-20241231105208457.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://andy-whb-cn.github.io/2024/12/31/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Andy&#39;s Note" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/andy-whb-cn" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Andy</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Programmer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/andy-whb-cn" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/" rel="tag">Flink</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A5%E5%8F%A3/" rel="tag">接口</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%84%9A%E6%9C%AC/" rel="tag">脚本</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Flink/" style="font-size: 13px;">Flink</a> <a href="/tags/Java/" style="font-size: 13.4px;">Java</a> <a href="/tags/SpringBoot/" style="font-size: 13.8px;">SpringBoot</a> <a href="/tags/Vue/" style="font-size: 13.2px;">Vue</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.2px;">前端</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 13px;">安全</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 13.6px;">微服务</a> <a href="/tags/%E6%8E%A5%E5%8F%A3/" style="font-size: 13px;">接口</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 14px;">架构</a> <a href="/tags/%E8%84%9A%E6%9C%AC/" style="font-size: 13px;">脚本</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/11/05/SpringBoot/SpringBoot%EF%BC%9A%E5%AE%A1%E8%AE%A1%E6%97%A5%E5%BF%97/" class="title">SpringBoot: 审计日志</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-11-04T16:00:00.000Z" itemprop="datePublished">2025-11-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/10/21/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E7%A7%92%E6%9D%80%E6%9C%8D%E5%8A%A1%E7%9A%84%E9%99%90%E6%B5%81%E7%AD%96%E7%95%A5/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-10-21T07:55:18.846Z" itemprop="datePublished">2025-10-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/04/25/%E5%B0%8F%E5%B7%A5%E5%85%B7/Python%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-04-25T02:29:12.878Z" itemprop="datePublished">2025-04-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/17/%E5%A4%A7%E6%A8%A1%E5%9E%8B/%E6%8E%A2%E7%A9%B6%20PIKE-RAG/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-17T05:18:52.109Z" itemprop="datePublished">2025-02-17</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/17/%E5%A4%A7%E6%A8%A1%E5%9E%8B/%E7%9F%A5%E8%AF%86%E5%BA%93%E6%9E%84%E5%BB%BA/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-17T02:44:55.561Z" itemprop="datePublished">2025-02-17</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-架构设计/企业架构设计" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/12/31/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" class="article-date">
+	  <time datetime="2024-12-31T02:51:55.120Z" itemprop="datePublished">2024-12-31</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/12/31/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="埃森哲国内企业架构咨询案例：“四横五纵”架构设计"><a href="#埃森哲国内企业架构咨询案例：“四横五纵”架构设计" class="headerlink" title="埃森哲国内企业架构咨询案例：“四横五纵”架构设计"></a><strong>埃森哲国内企业架构咨询案例：“四横五纵”架构设计</strong></h2><p><strong>“四横五纵”架构设计</strong>通过四个层次（策略层、管理层、设计层、实施层）和五个领域（业务架构、应用架构、数据架构、技术架构、架构管控）的系统化设计，确保企业IT系统与业务战略高度一致。通过自上而下的目标驱动和自下而上的实现反馈，构建出一个科学、合理的企业信息化蓝图，优化资源配置，提升企业灵活性和运营效率。</p>
+<p><img src="/image-20241231105208457.jpg"><br>“四横”聚焦架构的分层设计，从战略到实施逐层细化；“五纵”涵盖架构的五大核心领域，形成互补协同的整体架构生态。</p>
+<h3 id="“四横”分层设计详解"><a href="#“四横”分层设计详解" class="headerlink" title="“四横”分层设计详解"></a>“四横”分层设计详解</h3><p><img src="/image-20241231105249902.jpg"></p>
+<h4 id="第一层：策略层视图"><a href="#第一层：策略层视图" class="headerlink" title="第一层：策略层视图"></a><strong>第一层：策略层视图</strong></h4><p>策略层是架构的宏观指导层，决定信息化建设的目标与方向。该层强调全局性和整体性。</p>
+<ul>
+<li><strong>主要任务：</strong><ul>
+<li><strong>信息化战略规划</strong>：与企业业务战略深度对接，确定长期目标和短期目标。</li>
+<li><strong>制定政策规范</strong>：如数据治理、信息安全、技术选型等，为架构设计提供政策框架。</li>
+<li><strong>规划信息化蓝图</strong>：结合业务需求与技术趋势，绘制企业信息化的总体规划。</li>
+</ul>
+</li>
+<li><strong>输出成果：</strong><ul>
+<li>信息化战略规划报告</li>
+<li>信息化政策文件</li>
+</ul>
+</li>
+</ul>
+<h4 id="第二层：管理层视图"><a href="#第二层：管理层视图" class="headerlink" title="第二层：管理层视图"></a><strong>第二层：管理层视图</strong></h4><p>管理层进一步细化策略层目标，形成具体的架构蓝图。</p>
+<ul>
+<li><strong>主要任务：</strong><ul>
+<li><strong>业务架构规划</strong>：定义业务域、职能、流程及其关联关系。</li>
+<li><strong>应用架构规划</strong>：设计支撑业务的应用系统及其功能模块。</li>
+<li><strong>数据架构设计</strong>：明确数据主题、数据模型及流转关系。</li>
+<li><strong>技术架构规划</strong>：配置支持应用和数据的技术平台。</li>
+</ul>
+</li>
+<li><strong>输出成果：</strong><ul>
+<li>业务架构图</li>
+<li>应用架构图</li>
+<li>数据架构图</li>
+<li>技术架构图</li>
+</ul>
+</li>
+</ul>
+<h4 id="第三层：设计层视图"><a href="#第三层：设计层视图" class="headerlink" title="第三层：设计层视图"></a><strong>第三层：设计层视图</strong></h4><p>设计层聚焦架构的具体实现性，提供详细的解决方案。</p>
+<ul>
+<li><strong>主要任务：</strong><ul>
+<li><strong>应用系统设计</strong>：功能模块、界面、数据库详细设计。</li>
+<li><strong>数据模型设计</strong>：包括概念、逻辑、物理数据模型。</li>
+<li><strong>技术平台细化</strong>：明确技术组件、接口和部署方案。</li>
+<li><strong>安全体系规划</strong>：设计全面的信息安全方案。</li>
+</ul>
+</li>
+<li><strong>输出成果：</strong><ul>
+<li>详细设计文档（应用、数据、技术、安全）</li>
+</ul>
+</li>
+</ul>
+<h4 id="第四层：实施层视图"><a href="#第四层：实施层视图" class="headerlink" title="第四层：实施层视图"></a><strong>第四层：实施层视图</strong></h4><p>实施层是架构设计的落地和执行阶段。</p>
+<ul>
+<li><strong>主要任务：</strong><ul>
+<li><strong>软件开发</strong>：按照设计文档进行开发、测试和调试。</li>
+<li><strong>系统集成</strong>：实现应用系统间的数据交换与业务协同。</li>
+<li><strong>部署与运维</strong>：将系统部署到生产环境，并提供持续支持。</li>
+<li><strong>持续优化</strong>：根据反馈调整和改进系统。</li>
+</ul>
+</li>
+<li><strong>输出成果：</strong><ul>
+<li>软件系统</li>
+<li>集成后的应用系统</li>
+<li>运维文档</li>
+</ul>
+</li>
+</ul>
+<p><img src="/image-20241231105837602.jpg"></p>
+<h3 id="“五纵”架构设计详解"><a href="#“五纵”架构设计详解" class="headerlink" title="“五纵”架构设计详解"></a>“五纵”架构设计详解</h3><p><img src="/image-20241231105845730.jpg"> </p>
+<h4 id="1-业务架构"><a href="#1-业务架构" class="headerlink" title="1. 业务架构"></a>1. 业务架构</h4><p>业务架构是企业架构的基础，聚焦企业的核心业务流程和价值链。<br><img src="/image-20241231105908873.jpg"></p>
+<ul>
+<li><strong>关键要素：</strong><ul>
+<li><strong>业务域与职能</strong>：划分业务领域（如财务、人力资源等）及具体职能。</li>
+<li><strong>组织单元</strong>：定义部门、团队等具体执行实体及其协作关系。</li>
+<li><strong>业务流程</strong>：梳理起点、终点及活动逻辑，优化端到端流程。</li>
+</ul>
+</li>
+<li><strong>输出成果：</strong><ul>
+<li>业务架构图</li>
+<li>端到端流程图</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-应用架构"><a href="#2-应用架构" class="headerlink" title="2. 应用架构"></a><strong>2. 应用架构</strong></h4><p>应用架构支撑业务逻辑的信息化实现，规划应用系统的功能与交互。</p>
+<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/BInMRExFg4Wv8K9cp0kzIggDe8uab7VNxPZN3jvoeCvGCoIqSmqhm5tJkicDDzesoogsjic4bWzPfcjdXVWkWiaOg/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<ul>
+<li><strong>关键要素：</strong><ul>
+<li><strong>应用域和功能模块</strong>：明确每个应用的功能范围及模块划分。</li>
+<li><strong>接口与交互</strong>：定义数据交换接口和交互协议，确保系统集成。</li>
+<li><strong>应用分布与部署</strong>：规划应用在组织单元中的使用和分布。</li>
+</ul>
+</li>
+<li><strong>输出成果：</strong><ul>
+<li>应用架构图</li>
+<li>接口规范文档</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-数据架构"><a href="#3-数据架构" class="headerlink" title="3. 数据架构"></a><strong>3. 数据架构</strong></h4><p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/BInMRExFg4Wv8K9cp0kzIggDe8uab7VN031QWBP9grjht6DAQEeZfh0t7pyoqXmvNq4KVDcF4JMvkx15AVtB5A/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>数据架构确保企业数据资源的一致性和高效利用。</p>
+<ul>
+<li><strong>关键要素：</strong><ul>
+<li><strong>数据主题与实体</strong>：明确数据主题（如客户数据、财务数据）和数据实体。</li>
+<li><strong>数据模型</strong>：设计概念、逻辑和物理数据模型。</li>
+<li><strong>数据流转与治理</strong>：规划数据在系统间的流转及数据质量、安全管理策略。</li>
+</ul>
+</li>
+<li><strong>输出成果：</strong><ul>
+<li>数据架构图</li>
+<li>数据模型设计文档</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-技术架构"><a href="#4-技术架构" class="headerlink" title="4. 技术架构"></a><strong>4. 技术架构</strong></h4><p>技术架构描述支撑业务和数据的技术平台及基础设施。</p>
+<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/BInMRExFg4Wv8K9cp0kzIggDe8uab7VNmo2oTQDwfoVTlicl0VyXOPqPOrE0u8O67zMc75CqLzSxwwsUzibyUOTQ/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<ul>
+<li><strong>关键要素：</strong><ul>
+<li><strong>技术平台与组件</strong>：选择操作系统、数据库、中间件等组件。</li>
+<li><strong>系统集成与接口</strong>：确保不同技术平台和系统间的无缝连接。</li>
+<li><strong>基础设施与安全</strong>：规划数据中心、网络和安全体系。</li>
+</ul>
+</li>
+<li><strong>输出成果：</strong><ul>
+<li>技术架构图</li>
+<li>集成方案</li>
+<li>安全设计文档</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-架构管控"><a href="#5-架构管控" class="headerlink" title="5. 架构管控"></a><strong>5. 架构管控</strong></h4><p>架构管控是保障架构设计一致性和持续优化的关键。</p>
+<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/BInMRExFg4Wv8K9cp0kzIggDe8uab7VNSQFekTk8hCDQ2UyYJl5wVOjet9yyfyy7sgz65BiaIhItdg6DiafNk03g/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<ul>
+<li><strong>关键要素：</strong><ul>
+<li><strong>架构原则</strong>：明确业务导向、技术先进、安全可靠等基本准则。</li>
+<li><strong>管理规范</strong>：制定评审机制、变更管理流程。</li>
+<li><strong>架构资产</strong>：构建蓝图、模式、标准等资产库。</li>
+<li><strong>评审与改进</strong>：定期评估架构成果，确保动态优化。</li>
+</ul>
+</li>
+<li><strong>输出成果：</strong><ul>
+<li>管控规范文档</li>
+<li>架构评审报告</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://andy-whb-cn.github.io/2024/12/31/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="" target="_blank" rel="external">https://andy-whb-cn.github.io/2024/12/31/架构设计/企业架构设计/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/andy-whb-cn" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/andy-whb-cn" target="_blank"><span class="text-dark">Andy</span><small class="ml-1x">Programmer</small></a></h3>
+        <div>作者简介</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <script src="https://giscus.app/client.js"
+        data-repo="andy-whb-cn/andy-whb-cn.github.io"
+        data-repo-id="R_kgDOL1M-tw"
+        data-category=""
+        data-category-id="DIC_kwDOL1M-t84Ch813"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light_protanopia"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2025/01/02/SpringBoot/SpringData%EF%BC%9AJPA/" title="SpringData: JPA"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/12/20/%E6%9E%B6%E6%9E%84%E6%80%9D%E7%BB%B4/%E5%B9%B4%E7%BB%88%E5%B7%A5%E4%BD%9C%E6%B1%87%E6%8A%A5/" title="(no title)"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/andy-whb-cn" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+
+       
+
+
+
+
+
+
+
+</body>
+</html>

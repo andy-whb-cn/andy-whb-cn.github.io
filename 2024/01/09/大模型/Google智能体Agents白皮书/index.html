@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Google 智能体Agents白皮书 | Andy&#39;s Note</title>
+  <meta name="description" content="智能体 Agents作者：Julia Wiesinger， Patrick Marlow 和 Vladimir Vuskovic [TOC] 引言 智能体（Agent）概念：通过连接生成式AI大模型（Gen-AI Model）进行推理、逻辑和对外部信息访问的组合。  人类在复杂的模式识别任务方面非常出色。然而，在得出结论之前，他们通常依赖工具 —— 如书籍、谷歌搜索或计算器 —— 来补充预先的知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Google 智能体Agents白皮书">
+<meta property="og:url" content="https://andy-whb-cn.github.io/2024/01/09/%E5%A4%A7%E6%A8%A1%E5%9E%8B/Google%E6%99%BA%E8%83%BD%E4%BD%93Agents%E7%99%BD%E7%9A%AE%E4%B9%A6/index.html">
+<meta property="og:site_name" content="Andy&#39;s Note">
+<meta property="og:description" content="智能体 Agents作者：Julia Wiesinger， Patrick Marlow 和 Vladimir Vuskovic [TOC] 引言 智能体（Agent）概念：通过连接生成式AI大模型（Gen-AI Model）进行推理、逻辑和对外部信息访问的组合。  人类在复杂的模式识别任务方面非常出色。然而，在得出结论之前，他们通常依赖工具 —— 如书籍、谷歌搜索或计算器 —— 来补充预先的知识">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20250110131441115.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20250110132114589.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20250110132210445.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20250110132247531.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20250110132309914.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20250113101840015.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20250113101907762.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20250113101951771.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20250113102059084.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20250113102113395.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20250113102135088.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20250113102207601.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20250113102231551.jpg">
+<meta property="og:image" content="https://andy-whb-cn.github.io/image-20250113102416743.jpg">
+<meta property="article:published_time" content="2024-01-09T03:11:00.000Z">
+<meta property="article:modified_time" content="2025-01-14T09:46:41.379Z">
+<meta property="article:author" content="Andy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://andy-whb-cn.github.io/image-20250110131441115.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://andy-whb-cn.github.io/2024/01/09/%E5%A4%A7%E6%A8%A1%E5%9E%8B/Google%E6%99%BA%E8%83%BD%E4%BD%93Agents%E7%99%BD%E7%9A%AE%E4%B9%A6/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Andy&#39;s Note" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/andy-whb-cn" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Andy</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Programmer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/andy-whb-cn" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/" rel="tag">Flink</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A5%E5%8F%A3/" rel="tag">接口</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%84%9A%E6%9C%AC/" rel="tag">脚本</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Flink/" style="font-size: 13px;">Flink</a> <a href="/tags/Java/" style="font-size: 13.4px;">Java</a> <a href="/tags/SpringBoot/" style="font-size: 13.8px;">SpringBoot</a> <a href="/tags/Vue/" style="font-size: 13.2px;">Vue</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 13.2px;">前端</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 13px;">安全</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 13.6px;">微服务</a> <a href="/tags/%E6%8E%A5%E5%8F%A3/" style="font-size: 13px;">接口</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 14px;">架构</a> <a href="/tags/%E8%84%9A%E6%9C%AC/" style="font-size: 13px;">脚本</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/11/05/SpringBoot/SpringBoot%EF%BC%9A%E5%AE%A1%E8%AE%A1%E6%97%A5%E5%BF%97/" class="title">SpringBoot: 审计日志</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-11-04T16:00:00.000Z" itemprop="datePublished">2025-11-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/10/21/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E7%A7%92%E6%9D%80%E6%9C%8D%E5%8A%A1%E7%9A%84%E9%99%90%E6%B5%81%E7%AD%96%E7%95%A5/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-10-21T07:55:18.846Z" itemprop="datePublished">2025-10-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/04/25/%E5%B0%8F%E5%B7%A5%E5%85%B7/Python%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-04-25T02:29:12.878Z" itemprop="datePublished">2025-04-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/17/%E5%A4%A7%E6%A8%A1%E5%9E%8B/%E6%8E%A2%E7%A9%B6%20PIKE-RAG/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-17T05:18:52.109Z" itemprop="datePublished">2025-02-17</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/17/%E5%A4%A7%E6%A8%A1%E5%9E%8B/%E7%9F%A5%E8%AF%86%E5%BA%93%E6%9E%84%E5%BB%BA/" class="title">(no title)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-17T02:44:55.561Z" itemprop="datePublished">2025-02-17</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-大模型/Google智能体Agents白皮书" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Google 智能体Agents白皮书
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/01/09/%E5%A4%A7%E6%A8%A1%E5%9E%8B/Google%E6%99%BA%E8%83%BD%E4%BD%93Agents%E7%99%BD%E7%9A%AE%E4%B9%A6/" class="article-date">
+	  <time datetime="2024-01-09T03:11:00.000Z" itemprop="datePublished">2024-01-09</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/01/09/%E5%A4%A7%E6%A8%A1%E5%9E%8B/Google%E6%99%BA%E8%83%BD%E4%BD%93Agents%E7%99%BD%E7%9A%AE%E4%B9%A6/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="智能体-Agents"><a href="#智能体-Agents" class="headerlink" title="智能体 Agents"></a>智能体 Agents</h1><p>作者：Julia Wiesinger， Patrick Marlow 和 Vladimir Vuskovic</p>
+<p>[TOC]</p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><blockquote>
+<p>智能体（Agent）概念：通过连接生成式AI大模型（Gen-AI Model）进行推理、逻辑和对外部信息访问的组合。</p>
+</blockquote>
+<p>人类在复杂的模式识别任务方面非常出色。然而，在得出结论之前，他们通常依赖工具 —— 如书籍、谷歌搜索或计算器 —— 来补充预先的知识。就像人类一样，生成式AI大模型（Gen-AI Model）可以被训练使用工具来访问实时信息或建议现实世界的行动。例如，大模型可以利用数据库检索工具来访问特定信息，如客户的购买历史记录，来生成量身定制的购物建议。或者，根据用户的查询，大模型可以进行各种 API 调用，向同事发送电子邮件回复或完成金融交易。要做到这一点，大模型不仅需要访问一组外部工具，还需要有能力以自我导向的方式规划和执行任何任务。所有这些都与生成式AI大模型（Gen-AI Model）相关联的这种推理、逻辑和对外部信息的访问的组合引出了智能体（Agent）的概念，即一个继承并超越生成式AI大模型（Gen-AI Model）标准能力的程序。本白皮书将更详细地探讨所有这些及相关方面。</p>
+<h2 id="什么是智能体Agent"><a href="#什么是智能体Agent" class="headerlink" title="什么是智能体Agent"></a>什么是智能体Agent</h2><p>从最基本的形式来看，Gen-AI 智能体(Agent)可以被定义为一种应用程序，它通过观察世界并使用其可支配的工具对世界采取行动来尝试实现一个目标。Agent是自主的，可以在没有人类干预的情况下独立行动，特别是当被赋予它们要实现的适当目标时。Agent在实现目标的方法上也可以是积极主动的。即使在没有人类明确指令集的情况下，Agent也可以推断出下一步应该做什么来实现其最终目标。虽然AI中的Agent概念非常通用且强大，但本白皮书重点关注当前Gen-AI Model能够构建的特定类型的Agent。</p>
+<p>为了理解智能体Agent的内部运作，让我们首先介绍驱动Agent的行为、动作和决策的基本组件。这些组件的组合可以被描述为一个认知架构(Cognative Architecture)，并且有许多这样的架构能够通过这些组件的混合和匹配来实现。智能体Agent的认知架构中有三个基本核心组件，如图 1 所示。</p>
+<p><img src="/image-20250110131441115.jpg"><br>图 1. 通用智能体Agent的认知架构和基本组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">direction: right</span><br><span class="line"></span><br><span class="line">classes: &#123;</span><br><span class="line"></span><br><span class="line">d2: &#123;</span><br><span class="line"></span><br><span class="line">label: &quot;&quot;</span><br><span class="line"></span><br><span class="line">icon: https://icons.terrastruct.com/emotions%2F025-smile.svg</span><br><span class="line"></span><br><span class="line">style.stroke-width: 0</span><br><span class="line"></span><br><span class="line">style.fill: white</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">NONE: &#123;style.opacity: 0&#125;</span><br><span class="line"></span><br><span class="line">GREEN: &#123;style.stroke: &quot;#72A17E&quot;; style.fill: &quot;#D3E8D9&quot;; style.border-radius: 8&#125;</span><br><span class="line"></span><br><span class="line">GREEN-X: &#123;style.stroke: &quot;#6E9776&quot;; style.fill: &quot;#E9F4EA&quot;; style.border-radius: 8&#125;</span><br><span class="line"></span><br><span class="line">RED: &#123;style.stroke: &quot;#B56598&quot;; style.fill: &quot;#F9E8F2&quot;; style.border-radius: 8&#125;</span><br><span class="line"></span><br><span class="line">YELLOW: &#123;style.stroke: &quot;#D3B258&quot;; style.fill: &quot;#FCF7E1&quot;; style.border-radius: 8&#125;</span><br><span class="line"></span><br><span class="line">BLUE: &#123;style.stroke: &quot;#5484C4&quot;; style.fill: &quot;#EAEFFC&quot;; style.border-radius: 8&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">u.class: [d2]</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">u: User</span><br><span class="line"></span><br><span class="line">a: Agent Runtime &#123;</span><br><span class="line"></span><br><span class="line">class: BLUE</span><br><span class="line"></span><br><span class="line">grid-columns: 2</span><br><span class="line"></span><br><span class="line">grid-gap: 10</span><br><span class="line"></span><br><span class="line">l: &quot;&quot; &#123;</span><br><span class="line"></span><br><span class="line">class: NONE</span><br><span class="line"></span><br><span class="line">grid-rows: 2</span><br><span class="line"></span><br><span class="line">grid-gap: 10</span><br><span class="line"></span><br><span class="line">a1: Orchestration &#123;</span><br><span class="line"></span><br><span class="line">class: GREEN</span><br><span class="line"></span><br><span class="line">grid-rows: 1</span><br><span class="line"></span><br><span class="line">grid-columns: 1</span><br><span class="line"></span><br><span class="line">grid-gap: 10</span><br><span class="line"></span><br><span class="line">a11: Profile, goals, &amp;instructions &#123;class: GREEN-X&#125;</span><br><span class="line"></span><br><span class="line">xx: &quot;&quot; &#123;</span><br><span class="line"></span><br><span class="line">class: GREEN-X</span><br><span class="line"></span><br><span class="line">grid-columns: 3</span><br><span class="line"></span><br><span class="line">grid-gap: 5</span><br><span class="line"></span><br><span class="line">x0: Memory &#123;class: GREEN-X; style.stroke-width: 0&#125;</span><br><span class="line"></span><br><span class="line">x1: short-term &#123;class: GREEN-X; style.stroke-dash: 3; grid-gap: 0&#125;</span><br><span class="line"></span><br><span class="line">x2: long-term &#123;class: GREEN-X; style.stroke-dash: 3; grid-gap: 0&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a13: Model based Reasoning/Planning &#123;class: GREEN-X&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a2: Model &#123;class: RED&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">r: &quot;&quot; &#123;</span><br><span class="line"></span><br><span class="line">class: NONE</span><br><span class="line"></span><br><span class="line">grid-columns: 1</span><br><span class="line"></span><br><span class="line">grid-gap: 10</span><br><span class="line"></span><br><span class="line">a3: Tools &#123;class: YELLOW; height: 350&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">u -&gt; a: user_query</span><br><span class="line"></span><br><span class="line">a -&gt; u: agent_response</span><br></pre></td></tr></table></figure>
+
+<h3 id="大模型（Model"><a href="#大模型（Model" class="headerlink" title="大模型（Model)"></a>大模型（Model)</h3><p>在智能体Agent的范围内，模型是指将被用作智能体Agent流程的集中决策制定者的语言模型（LM）。智能体Agent使用的模型可以是一个或多个任意规模（小&#x2F;大）的语言模型，这些模型能够遵循基于指令的推理和逻辑框架，如 ReAct、思维链（Chain-of-Thought）或思维树（Tree-of-Thoughts）。模型可以是通用的、多模态的，也可以根据特定智能体Agent架构的需求进行微调。为了获得最佳的生产结果，你应该利用最适合你期望的最终应用的模型，并且理想情况下，该模型是在与你计划在认知架构中使用的工具相关的数据特征上进行训练的。需要注意的是，模型通常不是使用智能体Agent的特定配置设置（即工具选择、编排&#x2F;推理设置）进行训练的。然而，可以通过向模型提供展示智能体Agent能力的示例，包括智能体在各种上下文中使用特定工具或推理步骤的实例，来进一步优化模型以适应智能体Agent的任务。</p>
+<h3 id="工具（Tools）"><a href="#工具（Tools）" class="headerlink" title="工具（Tools）"></a>工具（Tools）</h3><p>基础模型虽然在文本和图像生成方面令人印象深刻，但仍受限于无法与外部世界交互。工具弥补了这一差距，使智能体Agent能够与外部数据和服务交互，同时解锁比基础模型单独所能实现的更广泛的行动范围。工具可以有各种形式，并且具有不同程度的复杂性，但通常与常见的 Web API 方法（如 GET、POST、PATCH 和 DELETE）一致。例如，一个工具可以更新数据库中的客户信息或获取天气数据以影响智能体Agent向用户提供的旅行建议。有了工具，智能体Agent可以访问和处理现实世界的信息。这使它们能够支持更专业的系统，如检索增强生成（RAG），这大大扩展了智能体Agent的能力，超出了基础模型自身所能实现的范围。我们将在下面更详细地讨论工具，但最重要的是要理解，工具在智能体Agent的内部能力和外部世界之间架起了一座桥梁，解锁了更广泛的可能性。</p>
+<h3 id="编排层（The-orchestration-layer）"><a href="#编排层（The-orchestration-layer）" class="headerlink" title="编排层（The orchestration layer）"></a>编排层（The orchestration layer）</h3><p>编排层描述了一个循环过程，该过程规定了智能体Agent如何接收信息、进行一些内部推理，并使用该推理来决定其下一个行动或决策。一般来说，这个循环将持续到智能体达到其目标或停止点。编排层的复杂性可能因智能体Agent及其执行的任务而有很大差异。一些循环可以是带有决策规则的简单计算，而其他循环可能包含链式逻辑、涉及额外的机器学习算法或实施其他概率推理技术。我们将在认知架构部分中讨论更多关于智能体编排层的详细实现。</p>
+<h3 id="智能体和大模型对比（Agents-vs-Models）"><a href="#智能体和大模型对比（Agents-vs-Models）" class="headerlink" title="智能体和大模型对比（Agents vs Models）"></a>智能体和大模型对比（Agents vs Models）</h3><p>为了更清楚地了解智能体和大模型之间的区别，请考虑以下图表：</p>
+<table>
+<thead>
+<tr>
+<th>大模型（Models）</th>
+<th>智能体（Agents）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>知识限定于可用的训练数据</td>
+<td>知识通过工具与外部系统的连接得以扩展。</td>
+</tr>
+<tr>
+<td>基于用户查询进行单次推理 &#x2F; 预测。除非专门为模型实现了相关功能，否则不会对会话历史或连续上下文（即聊天历史）进行管理。</td>
+<td>对会话历史（即聊天历史）进行管理，以便能够基于用户查询以及编排层所做的决策开展多轮推理&#x2F;预测。在此语境下，“一轮”被定义为交互系统与智能体之间的一次交互（即一次传入事件&#x2F;查询以及智能体的一次回复）。</td>
+</tr>
+<tr>
+<td>未实现原生工具</td>
+<td>工具在智能体架构中以原生方式实现。</td>
+</tr>
+<tr>
+<td>未实现原生逻辑层。用户可以将prompts表述为简单问题，也可以运用推理框架（思维链、推理与行动等）来构建复杂prompts，以引导模型进行预测。</td>
+<td>采用思维链（CoT）、推理与行动（ReAct）等推理框架，或诸如LangChain等其他预构建智能体框架的原生认知架构。</td>
+</tr>
+</tbody></table>
+<h3 id="认知架构：智能体Agent如何运作"><a href="#认知架构：智能体Agent如何运作" class="headerlink" title="认知架构：智能体Agent如何运作"></a>认知架构：智能体Agent如何运作</h3><p>假想有一位厨师在繁忙的厨房里，他的目标是为餐厅顾客创造美味的菜肴，这就涉及一系列计划、执行和调整的循环过程： </p>
+<ul>
+<li>收集信息：例如顾客的订单、食品储藏室和冰箱里有哪些食材。</li>
+<li>内部推理：根据刚刚收集的信息，推理可以制作哪些菜肴和风味特征。</li>
+<li>执行动作：执行切菜、混合香料、烤肉等一系列动作来完成这道菜。</li>
+</ul>
+<p>在过程的每个阶段，厨师都会根据需要进行调整，在食材耗尽或收到客户反馈时完善他们的计划，并使用之前的一组结果来确定下一个行动计划。这个信息获取、计划、执行和调整的循环过程描述了厨师为实现目标而采用的独特认知架构。</p>
+<p>就像厨师一样，智能体Agent可以通过迭代处理信息、做出明智的决策并根据以前的输出优化下一步行动，使用认知架构来实现其最终目标。智能体Agent认知架构的核心是编排层，负责维护内存、状态、推理和规划。它使用快速发展的提示工程和相关框架领域来指导推理和规划，使Agent能够更有效地与其环境交互并完成任务。语言模型的提示工程框架和任务规划领域的研究正在迅速发展，产生了各种有前途的方法。虽然不是详尽无遗的列表，但这些是本文发布时可用的一些最流行的框架和推理技术：</p>
+<ul>
+<li>ReAct：一种提示工程框架，为语言模型提供一种思考过程策略，以便对用户查询进行推理并采取行动，无论是否有上下文示例。ReAct 提示已被证明优于几个最先进的基线，并提高了语言模型的人类互操作性和可信度。</li>
+<li>思维链（Chain-of-Thought，CoT）：一种提示工程框架，它通过中间步骤实现推理能力。CoT 有多种子技术，包括自洽性、主动提示和多模态 CoT，每种技术在特定应用中都有其优缺点。</li>
+<li>思维树（Tree-of-thoughts）：一种非常适合探索或战略性前瞻任务的提示工程框架。它对思维链提示进行了概括，并允许模型探索各种作为语言模型通用问题解决中间步骤的思维链。</li>
+</ul>
+<p>Agent可以使用上述推理技术之一，或许多其他技术，为给定的用户请求选择下一个最佳行动。例如，让我们考虑一个使用 ReAct 框架为用户查询选择正确行动和工具的Agent程序。事件的顺序可能是这样的：</p>
+<ol>
+<li>用户向Agent发送查询</li>
+<li>Agent开始执行 ReAct 序列</li>
+<li>Agent向模型提供提示，要求它生成下一个 ReAct 步骤之一及其相应的输出：<br> a. 问题：用户查询中的输入问题，随提示一起提供<br> b. 想法：模型对下一步应该做什么的思考<br> c. 行动：模型对下一步要采取什么行动的决定<br> i. 这是可以选择工具的地方<br> ii. 例如，一个动作可以是 [Flight， Search， Code， None] 之一，其中前 3 个表示模型可以选择的已知工具，最后一个表示 “无工具选择”<br> d. 行动输入：模型决定向工具提供哪些输入（如果有）<br> e. 观察：动作 &#x2F; 动作输入序列的结果<br> i. 这个想法 &#x2F; 行动 &#x2F; 行动输入 &#x2F; 观察可以根据需要重复 N 次<br> f. 最终答案：模型提供给原始用户查询的最终答案</li>
+<li>ReAct 循环结束，并将最终答案返回给用户</li>
+</ol>
+<p><img src="/image-20250110132114589.jpg"><br>图 2.示例Agent：在编排层中使用 ReAct 推理</p>
+<p>如图 2 所示，Model、Tool和Agent配置协同工作，根据用户的原始查询为用户提供有根据的简洁回复。虽然模型本可以根据其先验知识猜测答案（产生幻觉），但它却使用了一个工具（Flights）来搜索实时外部信息。这些额外的信息被提供给模型，使其能够根据真实的事实数据做出更明智的决策，并将这些信息总结后反馈给用户。</p>
+<p>总之，智能体Agent响应的质量可以直接与模型对这些各种任务进行推理和行动的能力相关联，包括选择正确工具的能力，以及该工具被定义得有多好。就像一位厨师用新鲜食材精心制作菜肴并关注顾客反馈一样，智能体Agent依靠合理的推理和可靠的信息来提供最佳结果。在下一节中，我们将深入探讨智能体与新鲜数据的各种连接方式。</p>
+<h2 id="工具：我们打开外部世界的钥匙"><a href="#工具：我们打开外部世界的钥匙" class="headerlink" title="工具：我们打开外部世界的钥匙"></a>工具：我们打开外部世界的钥匙</h2><p>虽然语言模型在处理信息方面表现出色，但它们缺乏直接感知和影响现实世界的能力。这限制了它们在需要与外部系统或数据交互的情况下的实用性。这意味着，从某种意义上说，语言模型的好坏仅取决于它从训练数据中学到的东西。但是，无论我们向模型提供多少数据，它们仍然缺乏与外部世界交互的基本能力。那么，我们如何赋予我们的模型与外部系统进行实时、上下文感知交互的能力呢？函数、扩展、数据存储和插件都是为模型提供这种关键能力的方法。</p>
+<p>虽然它们有很多名称，但工具Tool是在我们的基础模型和外部世界之间建立联系的东西。与外部系统和数据的这种联系使我们的智能体Agent能够执行更广泛的任务，并以更高的准确性和可靠性来完成这些任务。例如，工具可以使智能体调整智能家居设置、更新日历、从数据库中获取用户信息，或者根据特定的指令集发送电子邮件。</p>
+<p>截至本白皮书发布之日，能够与谷歌模型交互的主要工具类型有三种：扩展程序、函数和数据存储。通过为智能体配备工具，我们为它们不仅理解世界而且对世界采取行动释放了巨大的潜力，为无数新的应用和可能性打开了大门。</p>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>理解扩展的最简单方法是将它们视为以标准化方式弥合 API 与Agent之间的差距，使Agent能够无缝地执行 API，而不管其底层实现如何。假设你已经构建了一个旨在帮助用户预订航班的Agent。你知道你想使用谷歌航班 API 来检索航班信息，但你不确定如何让你的Agent调用这个 API 端点。</p>
+<p><img src="/image-20250110132210445.jpg"></p>
+<p>图 3. 智能体如何与外部 API 交互？</p>
+<p>一种方法是实现自定义代码，该代码将接收传入的用户查询，解析查询中的相关信息，然后进行 API 调用。例如，在航班预订用例中，用户可能会说 “我想预订从奥斯汀到苏黎世的航班”。在这种情况下，我们的自定义代码解决方案需要在尝试进行 API 调用之前从用户查询中提取 “奥斯汀” 和 “苏黎世” 作为相关实体。但是，如果用户说 “我想预订去苏黎世的航班” 而从未提供出发城市会发生什么呢？没有所需的数据，API 调用将失败，并且需要实现更多代码才能捕获像这样的边缘情况和特殊情况。这种方法不可扩展，并且在任何超出已实现自定义代码的场景中都很容易出错。</p>
+<p>更有弹性的方法是使用扩展。扩展通过以下方式弥合Agent和 API 之间的差距：</p>
+<ol>
+<li>通过示例教Agent如何使用 API 。</li>
+<li>教导Agent成功调用 API 需要哪些参数或参数是什么。<br><img src="/image-20250110132247531.jpg"></li>
+</ol>
+<p>图4.扩展将Agent连接到外部API</p>
+<p>扩展可以独立于Agent进行创建，但应该作为Agent配置的一部分提供。Agent在运行时使用模型和示例来决定哪个扩展（如果有的话）适合解决用户的查询。这突出了扩展的一个关键优势，即它们的内置示例类型，允许Agent为任务动态选择最合适的扩展。</p>
+<p><img src="/image-20250110132309914.jpg"></p>
+<p>图5.Agent、扩展和API之间的一对多关系</p>
+<p>请像软件开发人员在为用户解决问题时决定使用哪些 API 一样考虑这个问题。如果用户想要预订航班，开发人员可能会使用 Google Flights API。如果用户想知道离他们所在位置最近的咖啡店在哪里，开发人员可能会使用 Google Maps API。同样，Agent&#x2F;Model堆栈使用一组已知的扩展来决定哪个最适合用户的查询。如果你想看到扩展的实际效果，可以在 Gemini 应用程序上试用它们，方法是转到设置&gt;扩展，然后启用你想要测试的任何扩展。例如，你可以启用 Google Flights 扩展，然后问 Gemini：“给我显示下周五从奥斯汀飞往苏黎世的航班。</p>
+<h4 id="扩展示例"><a href="#扩展示例" class="headerlink" title="扩展示例"></a>扩展示例</h4><p>为了简化扩展的使用，谷歌提供了一些现成的扩展，可以快速导入到你的项目中，并以最少的配置使用。例如，片段 1 中的代码解释器扩展允许你从自然语言描述中生成并运行 Python 代码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> vertexai </span><br><span class="line"><span class="keyword">import</span> pprint </span><br><span class="line"></span><br><span class="line">PROJECT_ID = <span class="string">&quot;YOUR_PROJECT_ID&quot;</span> </span><br><span class="line">REGION = <span class="string">&quot;us-central1&quot;</span> </span><br><span class="line"></span><br><span class="line">vertexai.init(project=PROJECT_ID, location=REGION) </span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> vertexai.preview.extensions <span class="keyword">import</span> Extension </span><br><span class="line"></span><br><span class="line">extension_code_interpreter = Extension.from_hub(<span class="string">&quot;code_interpreter&quot;</span>) </span><br><span class="line">CODE_QUERY = <span class="string">&quot;&quot;&quot;Write a python method to invert a binary tree in O(n) time.&quot;&quot;&quot;</span> </span><br><span class="line"></span><br><span class="line">response = extension_code_interpreter.execute(</span><br><span class="line">		operation_params = &#123;<span class="string">&quot;query&quot;</span>: CODE_QUERY&#125;,</span><br><span class="line">		operation_id = <span class="string">&quot;generate_and_execute&quot;</span>, </span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Generated Code:&quot;</span>) </span><br><span class="line">pprint.pprint(&#123;response[<span class="string">&#x27;generated_code&#x27;</span>]&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"># The above snippet will generate the following code.</span><br><span class="line"></span><br><span class="line">Generated Code: </span><br><span class="line">class TreeNode: </span><br><span class="line">	def __init__(self, val=0, left=None, right=None): </span><br><span class="line">		self.val = val </span><br><span class="line">		self.left = left </span><br><span class="line">		self.right = right</span><br><span class="line"></span><br><span class="line">def invert_binary_tree(root): </span><br><span class="line">	&quot;&quot;&quot;  </span><br><span class="line">	Inverts a binary tree</span><br><span class="line">	Args: </span><br><span class="line">		root: The root of the binary tree.</span><br><span class="line">	Returns:. </span><br><span class="line">		The root of the inverted binary tree.</span><br><span class="line">	&quot;&quot;&quot;</span><br><span class="line">	</span><br><span class="line">	if not root: </span><br><span class="line">		return None </span><br><span class="line">		</span><br><span class="line">	# Swap the left and right children recursively return root</span><br><span class="line">	root.left, root.right = invert_binary_tree(root.right),invert_binary_tree(root.left) </span><br><span class="line"></span><br><span class="line">	return root</span><br><span class="line">	</span><br><span class="line"># Example usage: </span><br><span class="line"># Construct a sample binary tree </span><br><span class="line">root = TreeNode(4)</span><br><span class="line">root.left = TreeNode(2) </span><br><span class="line">root.right = TreeNode(7) </span><br><span class="line">root.left.left = TreeNode(1)</span><br><span class="line">root.left.right = TreeNode(3) </span><br><span class="line">root.right.left = TreeNode(6) </span><br><span class="line">root.right.right = TreeNode(9)</span><br><span class="line"></span><br><span class="line"># Invert the binary tree </span><br><span class="line">inverted_root = invert_binary_tree(root)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>片段 1.Code Interpreter Extension 可以生成和运行 Python 代码</p>
+<p>总之，扩展为智能体提供了一种以多种方式感知、交互和影响外部世界的方法。这些扩展的选择和调用是由示例的使用来指导的，所有这些示例都是作为扩展配置的一部分来定义的。</p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>在软件工程领域，函数被定义为独立的代码模块，用于完成特定任务，并可根据需要重复使用。当软件开发人员编写程序时，他们通常会创建许多函数来执行各种任务。他们还会定义何时调用函数 A 与函数 B 的逻辑，以及预期的输入和输出。</p>
+<p>在智能体的世界中，函数的工作方式非常相似，但我们可以用模型替换软件开发人员。模型可以获取一组已知函数，并根据函数的规范决定何时使用每个函数以及该函数需要哪些参数。函数与扩展在一些方面有所不同，最显著的是：</p>
+<ol>
+<li>一个模型输出一个函数及其参数，但不进行实时的 API 调用。</li>
+<li>函数在客户端执行，而扩展在Agent端执行。</li>
+</ol>
+<p>再次以我们的谷歌航班示例为例，函数的简单设置可能看起来像图 7 中的示例。</p>
+<p><img src="/image-20250113101840015.jpg"><br>图 7.函数如何与外部 API 交互？</p>
+<p>请注意，这里的主要区别在于函数和Agent都不直接与谷歌航班 API 进行交互。那么 API 调用实际上是如何发生的呢？</p>
+<p>使用函数时，调用 API 从Agent转回客户端应用程序，如下图 8 和图 9 所示。这为开发人员提供了对应用程序中数据流的更精细控制。开发人员选择使用函数而不是扩展有很多原因，但一些常见的场景是：</p>
+<ul>
+<li>API 调用需要在Agent架构之外进行（例如，中间件系统、前端框架等）。</li>
+<li>安全或身份验证限制导致Agent无法直接调用 API（例如，API 未暴露在互联网上，或者Agent无法访问）。</li>
+<li>时间安排或操作顺序限制，导致Agent无法进行实时API 调用。（即批量操作、人工审查环节等）</li>
+<li>在处理 API 响应数据时，需要额外的数据转换逻辑，然而 Agent 却无法实现这一点。比如，实际应用场景需要限制API返回的数据量，API本身又不支持通过传参过滤。通过在客户端通过使用函数的方式，能够为开发人员提供一种额外的机制来完成上述数据转换逻辑。</li>
+<li>开发人员希望在Agent迭代开发中不需要部署API（即函数调用可以像 API 的 “存根” 一样）。</li>
+</ul>
+<p>虽然如图 8 所示，这两种方法在内部架构上的差异很细微，但函数调用所提供的额外控制以及对外部基础设施的解耦依赖使其成为开发人员的一个有吸引力的选择。</p>
+<p><img src="/image-20250113101907762.jpg"><br>图 8. 描述客户端与Agent端如何控制扩展和函数的调用</p>
+<h4 id="场景案例"><a href="#场景案例" class="headerlink" title="场景案例"></a>场景案例</h4><p>一个模型可以用来调用函数，以便为最终用户处理复杂的客户端执行流程，在这种情况下，Agent开发人员可能不希望语言模型管理 API 执行（就像扩展的情况一样）。让我们考虑以下场景，其中一个Agent正在被训练为旅行礼宾员，与想要预订度假旅行的用户进行交互。目标是让Agent生成一个城市列表，我们可以在中间件应用程序中使用该列表为用户的旅行计划下载图像、数据等。用户可能会说这样的话：</p>
+<p>*我想和家人一起去滑雪旅行，但我不知道去哪里。</p>
+<p>在模型的典型提示中，输出可能如下所示：</p>
+<p>*当然，这里有一份你可以考虑进行家庭滑雪旅行的城市列表：</p>
+<ul>
+<li>美国科罗拉多州克雷斯特德比特。</li>
+<li>惠斯勒，不列颠哥伦比亚省，加拿大</li>
+<li>瑞士采尔马特</li>
+</ul>
+<p>虽然上述输出包含我们需要的数据（城市名称），但格式不太适合解析。通过函数调用，我们可以教导模型以结构化的风格（如 JSON）格式化此输出，这种格式对于另一个系统解析来说更加方便。给定来自用户的相同输入提示，函数的示例 JSON 输出可能如片段 5 所示。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function_call &#123; </span><br><span class="line">   name: <span class="string">&quot;display_cities&quot;</span> </span><br><span class="line">   args: &#123; </span><br><span class="line">	   <span class="string">&quot;cities&quot;</span>: [<span class="string">&quot;Crested Butte&quot;</span>, <span class="string">&quot;Whistler&quot;</span>, <span class="string">&quot;Zermatt&quot;</span>], </span><br><span class="line">	   <span class="string">&quot;preferences&quot;</span>: <span class="string">&quot;skiing&quot;</span> </span><br><span class="line">   &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>片段 5. 用于显示城市列表和用户偏好的示例函数调用的payload数据。</p>
+<p>此 JSON payload数据由模型生成，然后发送到我们的客户端服务器，以便我们对其进行任何我们想做的操作。在这种特定情况下，我们将调用 Google Places API，获取模型提供的城市并查找图像，然后将它们作为格式化的丰富内容提供回我们的用户。请考虑图 9 中的此序列图，它逐步详细地展示了上述交互。</p>
+<p><img src="/image-20250113101951771.jpg"></p>
+<p>图 9. 显示函数调用生命周期的序列图</p>
+<p>图 9 中示例的结果是，利用该模型来 “填补空白”，为客户端 UI 调用 Google Places API 提供所需的参数。客户端 UI 使用模型在返回的函数中提供的参数来管理实际的 API 调用。这只是函数调用的一个用例，但还有许多其他场景需要考虑，例如：</p>
+<ul>
+<li>你希望语言模型为你的代码推荐一个函数，但你不想在代码中包含凭证信息。由于函数调用不会运行该函数，因此你无需在包含函数信息的代码中包含凭证信息。</li>
+<li>你正在运行可能需要几秒钟以上时间的异步操作。这些场景与函数调用配合得很好，因为它是一个异步操作。</li>
+<li>你希望在与生成函数调用及其参数的系统不同的设备上运行函数。</li>
+</ul>
+<p>关于函数需要记住的一个关键要点是，它们旨在为开发人员提供对 API 调用的执行以及整个应用程序中的数据整体流程的更多控制。在图 9 的示例中，开发人员选择不将 API 信息返回给Agent，因为这与Agent未来可能采取的行动无关。然而，根据应用程序的架构，将外部 API 调用数据返回给Agent以影响未来的推理、逻辑和行动选择可能是有意义的。最终，由应用程序开发人员来选择什么对特定的应用程序是正确的。</p>
+<h4 id="函数示例代码"><a href="#函数示例代码" class="headerlink" title="函数示例代码"></a>函数示例代码</h4><p>为了从我们的滑雪度假场景中获得上述输出，让我们构建出每个组件，使其与我们的 gemini-1.5-flash-001 模型一起工作。</p>
+<p>首先，我们将把 display_cities 函数定义为一个简单的 Python 方法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">display_cities</span>(<span class="params">cities: <span class="built_in">list</span>[<span class="built_in">str</span>], preferences: <span class="type">Optional</span>[<span class="built_in">str</span>] = <span class="literal">None</span></span>): </span><br><span class="line">	<span class="string">&quot;&quot;&quot;Provides a list of cities based on the user&#x27;s search query and preferences. </span></span><br><span class="line"><span class="string">	Args:</span></span><br><span class="line"><span class="string">		preferences (str): The user&#x27;s preferences for the search, like skiing, beach, restaurants, bbq, etc. </span></span><br><span class="line"><span class="string">		cities (list[str]): The list of cities being recommended to the user. </span></span><br><span class="line"><span class="string">		</span></span><br><span class="line"><span class="string">	Returns: </span></span><br><span class="line"><span class="string">		list[str]: The list of cities being recommended to the user. </span></span><br><span class="line"><span class="string">	&quot;&quot;&quot;</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> cities</span><br></pre></td></tr></table></figure>
+<p>片段 6. 将显示城市列表的函数的示例 python 方法。</p>
+<p>接下来，我们将实例化我们的模型，构建 Tool，然后将用户的查询和工具传递给模型。执行下面的代码将产生代码片段底部所示的输出。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> vertexai.generative_models <span class="keyword">import</span> GenerativeModel, Tool, FunctionDeclaration </span><br><span class="line"></span><br><span class="line">model = GenerativeModel(<span class="string">&quot;gemini-1.5-flash-001&quot;</span>) </span><br><span class="line"></span><br><span class="line">display_cities_function = FunctionDeclaration.from_func(display_cities) </span><br><span class="line">tool = Tool(function_declarations=[display_cities_function]) </span><br><span class="line"></span><br><span class="line">message = <span class="string">&quot;I’d like to take a ski trip with my family but I’m not sure where to go.&quot;</span> </span><br><span class="line"></span><br><span class="line">res = model.generate_content(message, tools=[tool]) </span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Function Name: <span class="subst">&#123;res.candidates[<span class="number">0</span>].content.parts[<span class="number">0</span>].function_call.name&#125;</span>&quot;</span>) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Function Args: <span class="subst">&#123;res.candidates[<span class="number">0</span>].content.parts[<span class="number">0</span>].function_call.args&#125;</span>&quot;</span>) </span><br><span class="line"></span><br><span class="line">&gt; Function Name: display_cities </span><br><span class="line">&gt; Function Args: &#123;<span class="string">&#x27;preferences&#x27;</span>: <span class="string">&#x27;skiing&#x27;</span>, <span class="string">&#x27;cities&#x27;</span>: [<span class="string">&#x27;Aspen&#x27;</span>, <span class="string">&#x27;Vail&#x27;</span>, <span class="string">&#x27;Park City&#x27;</span>]&#125;</span><br></pre></td></tr></table></figure>
+<p>片段 7. 构建工具，将用户查询发送到模型并允许进行函数调用。总之，函数提供了一个直接的框架，使应用程序开发人员能够对数据流和系统执行进行精细控制，同时有效地利用Agent&#x2F;Model进行关键输入生成。开发人员可以根据特定的应用程序架构要求，通过返回外部数据有选择地决定是否让代理 “参与其中”，或者省略它。</p>
+<h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><p>想象一个语言模型就像一个巨大的图书馆，里面存放着它的训练数据。但与不断获取新书籍的图书馆不同，这个语言模型保持静态，只拥有最初训练时的知识。这带来了一个挑战，因为现实世界的知识在不断演变。数据存储通过提供对更动态和最新信息的访问来解决这一限制，并确保模型的响应始终基于真实性和相关性。</p>
+<p>考虑一个常见的场景，开发者可能需要向模型提供少量额外的数据，也许是以电子表格或 PDF 的形式。</p>
+<p><img src="/image-20250113102059084.jpg"></p>
+<p>图 10.Agent 如何与结构化和非结构化数据交互？</p>
+<p>数据存储允许开发人员以其原始格式向Agent提供额外数据，消除了耗时的数据转换、模型再训练或微调的需要。数据存储将传入的文档转换为一组向量数据库嵌入，Agent可以使用这些嵌入来提取其补充下一步行动或对用户响应所需的信息。</p>
+<p><img src="/image-20250113102113395.jpg"></p>
+<h4 id="实现和应用"><a href="#实现和应用" class="headerlink" title="实现和应用"></a>实现和应用</h4><p>在生成式人工智能体Agent的背景下，数据存储通常被实现为一个向量数据库，开发人员希望Agent在运行时能够访问它。虽然我们在这里不会深入介绍向量数据库，但需要理解的关键一点是，它们以向量嵌入的形式存储数据，向量嵌入是一种高维向量或所提供数据的数学表示形式。近年来，语言模型中数据存储使用的最丰富的例子之一是检索增强(RAG)的实现。</p>
+<p>基于检索增强（RAG）的应用程序。这些应用程序试图通过让模型访问各种格式的数据来扩展模型知识的广度和深度，使其超越基础训练数据。</p>
+<ul>
+<li>网站内容</li>
+<li>PDF、Word Docs、CSV、电子表格等格式的结构化数据。</li>
+<li>HTML、PDF、TXT 等格式的非结构化数据。</li>
+</ul>
+<p><img src="/image-20250113102135088.jpg"></p>
+<p>图 12. Agent和数据存储之间的一对多关系，可以表示各种类型的预索引数据</p>
+<p>每个用户请求和Agent响应循环的底层过程通常如图 13 所示进行建模。</p>
+<ol>
+<li>用户查询被发送到embedding model以生成查询的embedding向量。</li>
+<li>使用像 SCaNN 这样的匹配算法将查询embedding与向量数据库的内容进行匹配。</li>
+<li>从向量数据库中检索匹配的内容以文本格式发送回Agent。</li>
+<li>Agent接收用户查询和检索到的内容，然后构建响应或行动。</li>
+<li>向用户发送最终响应<br><img src="/image-20250113102207601.jpg"></li>
+</ol>
+<p>图 13. 基于检索增强生成（RAG）的应用程序中用户请求和智能体响应的生命周期</p>
+<p>最终结果是一个应用程序，它允许Agent通过向量搜索将用户的查询与已知的数据存储进行匹配，检索原始内容，并将其提供给编排层和模型进行进一步处理。下一个动作可能是向用户提供最终答案，或者执行额外的向量搜索以进一步细化结果。</p>
+<p>与实现带有 ReAct 推理 &#x2F; 规划的检索增强生成（RAG）的智能体进行的示例交互可以在图 14 中看到。</p>
+<p><img src="/image-20250113102231551.jpg"></p>
+<p>图 14.带有 ReAct 推理 &#x2F; 规划的基于 RAG 的示例应用程序。</p>
+<h3 id="工具回顾"><a href="#工具回顾" class="headerlink" title="工具回顾"></a>工具回顾</h3><p>总而言之，扩展、函数和数据存储构成了几种不同的工具类型，可供Agent在运行时使用。每个都有自己的用途，它们可以一起使用，也可以由Agent开发人员自行决定单独使用。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>扩展</th>
+<th>函数调用</th>
+<th>数据存储</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>执行</td>
+<td>Agent</td>
+<td>客户端</td>
+<td>Agent</td>
+<td></td>
+</tr>
+<tr>
+<td>场景</td>
+<td>1. 开发人员希望智能体能够控制与 API 的交互。<br>2. 在利用原生的预构建扩展（例如，Vertex 搜索、代码解释器等）时，这很有用。<br>3. 多跳转规划和 API 调用（即智能体的下一个操作取决于前一个操作 &#x2F; API 调用的输出结果）。<br><br></td>
+<td>1. 安全或认证方面的限制导致智能体无法直接调用 API。<br>2. 时间限制或操作顺序限制使得智能体无法实时进行 API 调用。（例如，批量操作、人工介入审查等情况。）<br>3. API 未暴露在互联网上，或者谷歌系统无法访问该 API。<br><br></td>
+<td>开发人员希望使用以下任意一种数据类型来实现检索增强生成（RAG）：<br>1. 来自预先索引的域名和网址的网站内容。<br>2. 诸如 PDF、Word 文档、CSV、电子表格等格式的结构化数据。<br>3. 关系型 &#x2F; 非关系型数据库。<br>4. 诸如 HTML、PDF、TXT 等格式的非结构化数据。</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="通过有针对性的学习提高模型性能"><a href="#通过有针对性的学习提高模型性能" class="headerlink" title="通过有针对性的学习提高模型性能"></a>通过有针对性的学习提高模型性能</h2><p>有效使用模型的一个关键方面是它们在生成输出时选择正确工具的能力，尤其是在生产中大规模使用工具时。虽然一般训练有助于模型发展这种技能，但现实世界的场景往往需要训练数据之外的知识。可以把这想象成基本烹饪技能和掌握特定菜系之间的区别。两者都需要基础烹饪知识，但后者需要有针对性的学习才能获得更微妙的结果。</p>
+<p>为了帮助模型获得这种特定类型的知识，有几种方法存在：</p>
+<ul>
+<li>上下文学习：这种方法在推理时为通用模型提供提示、工具和少量示例，使其能够 “即时” 学习如何以及何时使用这些工具来完成特定任务。ReAct 框架是自然语言中这种方法的一个例子。</li>
+<li>基于检索的上下文学习：这种技术通过从外部存储器中检索最相关的信息、工具和相关示例，动态地填充模型提示。一个例子是 Vertex AI 扩展中的 “示例存储” 或前面提到的基于检索增强生成（RAG）架构的数据存储。</li>
+<li>基于微调的学习：这种方法涉及在推理之前使用更大的特定示例数据集来训练模型。这有助于模型在接收任何用户查询之前了解何时以及如何应用某些工具。</li>
+</ul>
+<p>为了对每种有针对性的学习方法提供更多见解，让我们再次回顾我们的烹饪类比。</p>
+<ul>
+<li>想象一下，一位厨师从顾客那里收到了一份特定的食谱（提示）、一些关键食材（相关工具）和一些示例菜肴（少量示例）。基于这些有限的信息以及厨师对烹饪的一般知识，他们需要当场想出如何准备与食谱和顾客偏好最接近的菜肴。这就是情境学习。</li>
+<li>现在让我们想象一下，我们的厨师在一个厨房里，这个厨房有一个储备充足的食品储藏室（外部数据存储），里面装满了各种食材和烹饪书（示例和工具）。现在，厨师能够从食品储藏室中动态地选择食材和烹饪书，并更好地适应顾客的食谱和偏好。这使得厨师能够利用现有知识和新知识创造出更有见地、更精致的菜肴。这就是基于检索的上下文学习。</li>
+<li>最后，让我们想象一下，我们把厨师送回学校去学习一种新的菜系或一组菜系（在特定示例的更大数据集上进行预训练）。这使得厨师能够以更深刻的理解来处理未来未见过的顾客菜谱。如果我们希望厨师在特定菜系（知识领域）中表现出色，这种方法是完美的。这是基于微调的学习。</li>
+</ul>
+<p>这些方法中的每一种在速度、成本和延迟方面都有独特的优势和劣势。然而，通过在智能体框架中结合这些技术，我们可以利用各种优势并最小化它们的弱点，从而实现更强大和适应性更强的解决方案。</p>
+<h2 id="智能体（Agent）-快速入门-LangChain"><a href="#智能体（Agent）-快速入门-LangChain" class="headerlink" title="智能体（Agent） 快速入门 LangChain"></a>智能体（Agent） 快速入门 LangChain</h2><p>为了提供一个真实世界中可执行的智能体示例，我们将使用 LangChain 和 LangGraph 库构建一个快速原型。这些流行的开源库允许用户通过 “链接” 一系列逻辑、推理和工具调用序列来构建客户智能体，以回答用户的查询。我们将使用 gemini-1.5-flash-001 模型和一些简单的工具来回答用户的多阶段查询，如代码片段 8 所示。</p>
+<p>我们正在使用的工具是 SerpAPI（用于谷歌搜索）和谷歌地点 API。在执行了代码片段 8 中的程序后，你可以在代码片段 9 中看到示例输出。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langgraph.prebuilt <span class="keyword">import</span> create_react_agent </span><br><span class="line"><span class="keyword">from</span> langchain_core.tools <span class="keyword">import</span> tool </span><br><span class="line"><span class="keyword">from</span> langchain_community.utilities <span class="keyword">import</span> SerpAPIWrapper </span><br><span class="line"><span class="keyword">from</span> langchain_community.tools <span class="keyword">import</span> GooglePlacesTool </span><br><span class="line"></span><br><span class="line">os.environ[<span class="string">&quot;SERPAPI_API_KEY&quot;</span>] = <span class="string">&quot;XXXXX&quot;</span> </span><br><span class="line">os.environ[<span class="string">&quot;GPLACES_API_KEY&quot;</span>] = <span class="string">&quot;XXXXX&quot;</span> </span><br><span class="line"></span><br><span class="line"><span class="meta">@tool </span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">search</span>(<span class="params">query: <span class="built_in">str</span></span>):</span><br><span class="line">	<span class="string">&quot;&quot;&quot;Use the SerpAPI to run a Google Search.&quot;&quot;&quot;</span> </span><br><span class="line">	search = SerpAPIWrapper() </span><br><span class="line">	<span class="keyword">return</span> search.run(query) </span><br><span class="line"></span><br><span class="line"><span class="meta">@tool </span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">places</span>(<span class="params">query: <span class="built_in">str</span></span>): </span><br><span class="line">	<span class="string">&quot;&quot;&quot;Use the Google Places API to run a Google Places Query.&quot;&quot;&quot;</span> </span><br><span class="line">	places = GooglePlacesTool() </span><br><span class="line">	<span class="keyword">return</span> places.run(query) </span><br><span class="line"></span><br><span class="line">model = ChatVertexAI(model=<span class="string">&quot;gemini-1.5-flash-001&quot;</span>) </span><br><span class="line">tools = [search, places] </span><br><span class="line"></span><br><span class="line">query = <span class="string">&quot;Who did the Texas Longhorns play in football last week? What is the address of the other team&#x27;s stadium?&quot;</span> </span><br><span class="line"></span><br><span class="line">agent = create_react_agent(model, tools) </span><br><span class="line"><span class="built_in">input</span> = &#123;<span class="string">&quot;messages&quot;</span>: [(<span class="string">&quot;human&quot;</span>, query)]&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> agent.stream(<span class="built_in">input</span>, stream_mode=<span class="string">&quot;values&quot;</span>):</span><br><span class="line">	message = s[<span class="string">&quot;messages&quot;</span>][-<span class="number">1</span>] </span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">isinstance</span>(message, <span class="built_in">tuple</span>): </span><br><span class="line">		<span class="built_in">print</span>(message) </span><br><span class="line">	<span class="keyword">else</span>: </span><br><span class="line">		message.pretty_print()</span><br></pre></td></tr></table></figure>
+<p>片段 8. 基于 LangChain 和 LangGraph 的带工具的示例Agent。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">=============================== Human Message ================================  </span><br><span class="line">Who did the Texas Longhorns play <span class="keyword">in</span> football last week? What <span class="keyword">is</span> the address  </span><br><span class="line">of the other team<span class="string">&#x27;s stadium?  </span></span><br><span class="line"><span class="string">================================= Ai Message =================================  </span></span><br><span class="line"><span class="string">Tool Calls: search  </span></span><br><span class="line"><span class="string">Args:  </span></span><br><span class="line"><span class="string">	query: Texas Longhorns football schedule  </span></span><br><span class="line"><span class="string">================================ Tool Message ================================  </span></span><br><span class="line"><span class="string">Name: search  </span></span><br><span class="line"><span class="string">&#123;...Results: &quot;NCAA Division I Football, Georgia, Date...&quot;&#125;  </span></span><br><span class="line"><span class="string">================================= Ai Message =================================  </span></span><br><span class="line"><span class="string">The Texas Longhorns played the Georgia Bulldogs last week.  </span></span><br><span class="line"><span class="string">Tool Calls: places  </span></span><br><span class="line"><span class="string">Args:  </span></span><br><span class="line"><span class="string">	query: Georgia Bulldogs stadium  </span></span><br><span class="line"><span class="string">================================ Tool Message ================================  </span></span><br><span class="line"><span class="string">Name: places  </span></span><br><span class="line"><span class="string">&#123;...Sanford Stadium Address: 100 Sanford...&#125;  </span></span><br><span class="line"><span class="string">================================= Ai Message =================================  </span></span><br><span class="line"><span class="string">The address of the Georgia Bulldogs stadium is 100 Sanford Dr, Athens, GA  </span></span><br><span class="line"><span class="string">30602, USA.  </span></span><br></pre></td></tr></table></figure>
+<p>片段 9. 代码段 8 中程序的输出</p>
+<p>虽然这是一个相当简单的智能体示例，但它展示了模型、编排和工具的基本组成部分共同发挥作用以实现特定目标。在最后一部分，我们将探讨这些组件如何在谷歌规模的托管产品（如 Vertex AI 智能体和生成式剧本）中协同工作。</p>
+<h2 id="使用-Vertex-AI-代理的生产应用程序"><a href="#使用-Vertex-AI-代理的生产应用程序" class="headerlink" title="使用 Vertex AI 代理的生产应用程序"></a>使用 Vertex AI 代理的生产应用程序</h2><p>虽然本白皮书探讨了智能体的核心组成部分，但构建生产级应用程序需要将它们与其他工具（如用户界面、评估框架和持续改进机制）集成。谷歌的 Vertex AI 平台通过提供一个完全托管的环境简化了这一过程，涵盖了前面提到的所有基本要素。通过自然语言界面，开发人员可以快速定义其智能体的关键要素 —— 目标、任务指令、工具、用于任务委派的子智能体以及示例 —— 以轻松构建所需的系统行为。此外，该平台还配备了一组开发工具，可用于测试、评估、测量智能体性能、调试以及提高所开发智能体的整体质量。这使开发人员能够专注于构建和完善他们的智能体，而基础设施、部署和维护的复杂性则由平台本身管理。</p>
+<p>在图 15 中，我们提供了一个在 Vertex AI 平台上构建的代理的示例架构，该架构使用了各种功能，例如 Vertex Agent Builder、Vertex Extensions、Vertex Function Calling 和 Vertex Example Store 等等。该架构包括了生产就绪应用程序所需的许多不同组件。</p>
+<p><img src="/image-20250113102416743.jpg"></p>
+<p>图 15. 基于 Vertex AI 平台构建的端到端Agent架构示例</p>
+<p>您可以从我们的官方文档中尝试此预构建Agent架构的示例。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在这份白皮书中，我们讨论了生成式人工智能体的基础构建模块、它们的组成以及以认知架构的形式实现它们的有效方法。这份白皮书的一些关键要点包括：</p>
+<ol>
+<li><p>智能体通过利用工具来访问实时信息、建议实际行动以及自主规划和执行复杂任务，从而扩展语言模型的能力。智能体可以利用一个或多个语言模型来决定何时以及如何在状态之间转换，并使用外部工具来完成许多对于模型自身来说难以或不可能完成的复杂任务。</p>
+</li>
+<li><p>在智能体运作的核心是编排层，这是一种认知架构，用于构建推理、规划、决策并指导其行动。各种推理技术，如 ReAct、思维链和思维树，为编排层提供了一个框架，以接收信息、进行内部推理并生成明智的决策或响应。</p>
+</li>
+<li><p>工具，如扩展、函数和数据存储，是智能体通向外部世界的关键，使它们能够与外部系统交互并访问超出其训练数据的知识。扩展在智能体和外部 API 之间提供了一座桥梁，能够执行 API 调用并检索实时信息。函数通过分工为开发人员提供更细致的控制，允许智能体生成可在客户端执行的函数参数。数据存储为智能体提供对结构化或非结构化数据的访问，实现数据驱动的应用程序。</p>
+</li>
+</ol>
+<p>Agent的未来有着令人兴奋的进步，我们才刚刚开始触及可能实现的事物的表面。随着工具变得更加复杂，推理能力得到增强，代理将有能力解决日益复杂的问题。</p>
+<p>此外，“智能体链接” 的战略方法将继续获得发展动力。</p>
+<p>结合专业的智能体 —— 每个智能体在特定领域或任务中表现出色 —— 我们可以创建一种 “智能体专家混合” 方法，能够在各个行业和问题领域中提供卓越的结果。</p>
+<p>重要的是要记住，构建复杂的智能体架构需要<strong>采用迭代方法</strong>。实验和改进是找到特定业务案例和组织需求解决方案的关键。由于支撑其架构的基础模型具有生成性，因此没有两个智能体是完全相同的。然而，通过利用这些基础组件各自的优势，我们可以创建具有影响力的应用程序，扩展语言模型的能力并带来实际价值。</p>
+<h2 id="尾注"><a href="#尾注" class="headerlink" title="尾注"></a>尾注</h2><ol>
+<li>ran, I., Cao, Y. 等人，2022 年，“ReAct：在语言模型中协同推理和行动”。可在：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2210.03629">https://arxiv.org/pdf/2210.03629</a> 获取。</li>
+<li>Wei, J., Wang, X. 等人，2023 年，《思维链提示在大型语言模型中引发推理》。可在：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2201.11903.pdf">https://arxiv.org/pdf/2201.11903.pdf</a> 获得。</li>
+<li>Wang, X. 等人，2022，《自洽性提高语言模型中的思维链推理》。可在以下网址获取：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2203.11171">https://arxiv.org/pdf/2203.11171</a>。</li>
+<li>Diao, S. 等人，2023，“使用思维链进行主动提示的大型语言模型”。可在以下网址获取：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2302.12246.pdf">https://arxiv.org/pdf/2302.12246.pdf</a>。</li>
+<li>Zhang, H. 等人，2023，《语言模型中的多模态思维链推理》。可在：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2302.00923">https://arxiv.org/pdf/2302.00923</a> 获得。</li>
+<li>Yao, S. 等人，2023 年，《思维树：使用大型语言模型进行深思熟虑的问题解决》。可在：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2305.10601">https://arxiv.org/pdf/2305.10601</a> 获得。</li>
+<li>Long， X.，2023 年，“大型语言模型引导的思想树”。网址：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.08291">https://arxiv.org/abs/2305.08291</a>。</li>
+<li>Google。“Google Gemini 应用程序”。可在以下网址获取：<a target="_blank" rel="noopener" href="http://gemini.google.com/">http://gemini.google.com</a>。</li>
+<li>Swagger。“OpenAPI 规范”。可在以下网址获取：<a target="_blank" rel="noopener" href="https://swagger.io/specification/">https://swagger.io/specification/</a>。</li>
+<li>Xie， M.，2022 年，“情境学习如何运作？理解与传统监督学习差异的框架”。网址：<a target="_blank" rel="noopener" href="https://ai.stanford.edu/blog/understanding-incontext/">https://ai.stanford.edu/blog/understanding-incontext/</a>。</li>
+<li>谷歌研究。’ScaNN （可扩展最近邻）’。网址：<a target="_blank" rel="noopener" href="https://github.com/google-research/google-research/tree/master/scann">https://github.com/google-research/google-research/tree/master/scann</a>。</li>
+<li>LangChain. ‘LangChain’. Available at: <a target="_blank" rel="noopener" href="https://python.langchain.com/v0.2/docs/introduction/">https://python.langchain.com/v0.2/docs/introduction/</a>.</li>
+</ol>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://andy-whb-cn.github.io/2024/01/09/%E5%A4%A7%E6%A8%A1%E5%9E%8B/Google%E6%99%BA%E8%83%BD%E4%BD%93Agents%E7%99%BD%E7%9A%AE%E4%B9%A6/" title="Google 智能体Agents白皮书" target="_blank" rel="external">https://andy-whb-cn.github.io/2024/01/09/大模型/Google智能体Agents白皮书/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/andy-whb-cn" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/andy-whb-cn" target="_blank"><span class="text-dark">Andy</span><small class="ml-1x">Programmer</small></a></h3>
+        <div>作者简介</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <script src="https://giscus.app/client.js"
+        data-repo="andy-whb-cn/andy-whb-cn.github.io"
+        data-repo-id="R_kgDOL1M-tw"
+        data-category=""
+        data-category-id="DIC_kwDOL1M-t84Ch813"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light_protanopia"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/04/30/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%EF%BC%9AIFrame-Auto-Resize/" title="前端：IFrame自适应高度"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/andy-whb-cn" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+
+       
+
+
+
+
+
+
+
+</body>
+</html>

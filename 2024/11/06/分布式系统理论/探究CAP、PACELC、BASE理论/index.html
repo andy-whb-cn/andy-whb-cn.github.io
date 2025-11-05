@@ -18,15 +18,15 @@
   
   
   <title>探究CAP、PACELC、BASE理论 | Andy&#39;s Note</title>
-  <meta name="description" content="CAPCAP 理论是由加州大学伯克利分校的 Eric Brewer 教授在 2000 年提出的，当时他在分布式计算原理研讨会（PODC）上提出了这一猜想。在 2002 年，经过 Seth Gilbert 和 Nancy Lynch 通过反证法从理论上证明了 CAP 猜想后，CAP 理论正式成为了分布式系统理论的基石之一。 这个理论即在一个分布式系统中，不可能同时满足一致性（Consistency）">
+  <meta name="description" content="CAPCAP 理论是由加州大学伯克利分校的 Eric Brewer 教授在 2000 年提出的，当时他在分布式计算原理研讨会（PODC）上提出了这一猜想。在 2002 年，经过 Seth Gilbert 和 Nancy Lynch 通过反证法从理论上证明了 CAP 猜想后，CAP 理论正式成为了分布式系统理论的基石之一。这一证明发表在ACM SIGACT News上，文章标题为“Brewer’s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="探究CAP、PACELC、BASE理论">
 <meta property="og:url" content="https://andy-whb-cn.github.io/2024/11/06/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/%E6%8E%A2%E7%A9%B6CAP%E3%80%81PACELC%E3%80%81BASE%E7%90%86%E8%AE%BA/index.html">
 <meta property="og:site_name" content="Andy&#39;s Note">
-<meta property="og:description" content="CAPCAP 理论是由加州大学伯克利分校的 Eric Brewer 教授在 2000 年提出的，当时他在分布式计算原理研讨会（PODC）上提出了这一猜想。在 2002 年，经过 Seth Gilbert 和 Nancy Lynch 通过反证法从理论上证明了 CAP 猜想后，CAP 理论正式成为了分布式系统理论的基石之一。 这个理论即在一个分布式系统中，不可能同时满足一致性（Consistency）">
+<meta property="og:description" content="CAPCAP 理论是由加州大学伯克利分校的 Eric Brewer 教授在 2000 年提出的，当时他在分布式计算原理研讨会（PODC）上提出了这一猜想。在 2002 年，经过 Seth Gilbert 和 Nancy Lynch 通过反证法从理论上证明了 CAP 猜想后，CAP 理论正式成为了分布式系统理论的基石之一。这一证明发表在ACM SIGACT News上，文章标题为“Brewer’s">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-06T09:22:10.177Z">
-<meta property="article:modified_time" content="2024-11-21T01:47:40.909Z">
+<meta property="article:modified_time" content="2024-12-17T07:35:08.224Z">
 <meta property="article:author" content="Andy">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
@@ -195,7 +195,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/" rel="tag">Flink</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A5%E5%8F%A3/" rel="tag">接口</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%84%9A%E6%9C%AC/" rel="tag">脚本</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flink/" rel="tag">Flink</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag">微服务</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A5%E5%8F%A3/" rel="tag">接口</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag">架构</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%84%9A%E6%9C%AC/" rel="tag">脚本</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -214,7 +214,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -233,10 +233,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2024/11/06/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/%E6%8E%A2%E7%A9%B6CAP%E3%80%81PACELC%E3%80%81BASE%E7%90%86%E8%AE%BA/" class="title">探究CAP、PACELC、BASE理论</a>
+                <a href="/2025/11/05/SpringBoot/SpringBoot%EF%BC%9A%E5%AE%A1%E8%AE%A1%E6%97%A5%E5%BF%97/" class="title">SpringBoot: 审计日志</a>
               </p>
               <p class="item-date">
-                <time datetime="2024-11-06T09:22:10.177Z" itemprop="datePublished">2024-11-06</time>
+                <time datetime="2025-11-04T16:00:00.000Z" itemprop="datePublished">2025-11-05</time>
               </p>
             </div>
           </li>
@@ -248,10 +248,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84/" class="title">(no title)</a>
+                <a href="/2025/10/21/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E7%A7%92%E6%9D%80%E6%9C%8D%E5%8A%A1%E7%9A%84%E9%99%90%E6%B5%81%E7%AD%96%E7%95%A5/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2024-11-06T07:54:50.869Z" itemprop="datePublished">2024-11-06</time>
+                <time datetime="2025-10-21T07:55:18.846Z" itemprop="datePublished">2025-10-21</time>
               </p>
             </div>
           </li>
@@ -263,10 +263,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6%E6%9E%B6%E6%9E%84%E7%90%86%E8%AE%BA%E7%9A%84%E6%BC%94%E8%BF%9B%EF%BC%88%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E6%9E%B6%E6%9E%84%EF%BC%89/" class="title">探究架构理论的演进（领域驱动架构）</a>
+                <a href="/2025/04/25/%E5%B0%8F%E5%B7%A5%E5%85%B7/Python%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2024-11-06T03:23:04.498Z" itemprop="datePublished">2024-11-06</time>
+                <time datetime="2025-04-25T02:29:12.878Z" itemprop="datePublished">2025-04-25</time>
               </p>
             </div>
           </li>
@@ -278,10 +278,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E6%8E%A2%E7%A9%B6KISS%E5%8E%9F%E5%88%99/" class="title">探究KISS原则</a>
+                <a href="/2025/02/17/%E5%A4%A7%E6%A8%A1%E5%9E%8B/%E6%8E%A2%E7%A9%B6%20PIKE-RAG/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2024-11-06T02:34:35.950Z" itemprop="datePublished">2024-11-06</time>
+                <time datetime="2025-02-17T05:18:52.109Z" itemprop="datePublished">2025-02-17</time>
               </p>
             </div>
           </li>
@@ -293,10 +293,10 @@
                 
               </p>
               <p class="item-title">
-                <a href="/2024/11/06/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%88SOLID%E5%8E%9F%E5%88%99%EF%BC%89/" class="title">设计模式之六大设计原则（SOLID原则）</a>
+                <a href="/2025/02/17/%E5%A4%A7%E6%A8%A1%E5%9E%8B/%E7%9F%A5%E8%AF%86%E5%BA%93%E6%9E%84%E5%BB%BA/" class="title">(no title)</a>
               </p>
               <p class="item-date">
-                <time datetime="2024-11-06T01:38:49.403Z" itemprop="datePublished">2024-11-06</time>
+                <time datetime="2025-02-17T02:44:55.561Z" itemprop="datePublished">2025-02-17</time>
               </p>
             </div>
           </li>
@@ -344,7 +344,8 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h3 id="CAP"><a href="#CAP" class="headerlink" title="CAP"></a>CAP</h3><p>CAP 理论是由加州大学伯克利分校的 Eric Brewer 教授在 2000 年提出的，当时他在分布式计算原理研讨会（PODC）上提出了这一猜想。在 2002 年，经过 Seth Gilbert 和 Nancy Lynch 通过反证法从理论上证明了 CAP 猜想后，CAP 理论正式成为了分布式系统理论的基石之一。</p>
+        <h3 id="CAP"><a href="#CAP" class="headerlink" title="CAP"></a>CAP</h3><pre><code>CAP 理论是由加州大学伯克利分校的 Eric Brewer 教授在 2000 年提出的，当时他在分布式计算原理研讨会（PODC）上提出了这一猜想。在 2002 年，经过 Seth Gilbert 和 Nancy Lynch 通过反证法从理论上证明了 CAP 猜想后，CAP 理论正式成为了分布式系统理论的基石之一。这一证明发表在ACM SIGACT News上，文章标题为“Brewer’s Conjecture and the Feasibility of Consistent, Available, Partition-Tolerant Web Services”。
+</code></pre>
 <p>这个理论即在一个分布式系统中，不可能同时满足一致性（Consistency）、可用性（Availability）和分区容错性（Partition Tolerance）这三个条件。实际上在分布式环境下，必须选择P。因此，分布式系统理论不可能选择CA，只能选择CP或AP。</p>
 <ul>
 <li>C（一致性）：对于指定客户端而言，保证读操作能够返回最新的写操作结果。在分布式系统中，这意味着所有节点在同一时间具有相同的数据副本。</li>
@@ -361,7 +362,31 @@
 <li>正常运行情况下，没有发生网络分区，不存在CP和AP的选择，可同时满足CA。</li>
 <li>CAP中牺牲掉一个，并不意味着什么都不做，例如分区期间记录日志，以用于分区故障解决后，重新使得系统得到CA状态。</li>
 </ul>
-<h3 id="PACELC理论"><a href="#PACELC理论" class="headerlink" title="PACELC理论"></a>PACELC理论</h3><h3 id="BASE理论"><a href="#BASE理论" class="headerlink" title="BASE理论"></a>BASE理论</h3>
+<h3 id="PACELC理论"><a href="#PACELC理论" class="headerlink" title="PACELC理论"></a>PACELC理论</h3><pre><code>PACELC理论是由Seth Gilbert 和 Nancy Lynch 于2012年提出的，最初发表在IEEE Computer Magazine上，具体的文章标题是“Perspectives on the CAP Theorem”。
+</code></pre>
+<p>CAP理论主要关注在网络分区发生时，系统如何在一致性和可用性之间做出选择，但并没有考虑到在实际应用中的一些局限性，特别是在没有网络分区的情况下，系统如何在延迟（Latency）和一致性（Consistency）之间做出权衡的问题。</p>
+<p>PACELC理论的核心思想即在网络分区发生时，系统设计者需要在一致性、可用性之间做出选择；而在没有网络分区的情况下，系统需要在延迟和一致性之间做出选择。</p>
+<ul>
+<li>P（Partition tolerance）：分区容错性，指分布式系统在遇到网络分区时，仍然能够对外提供服务。</li>
+<li>A（Availability）：可用性，指系统能够始终提供服务，即使在面对故障或网络分区时也能保持服务可用。</li>
+<li>C（Consistency）：一致性，指所有节点在同一时间的数据完全一致。</li>
+<li>E（Else）：在没有网络分区的情况下，系统需要在延迟（Latency）与一致性（Consistency）之间做出权衡。</li>
+<li>L（Latency）：延迟，指数据的读写操作产生的延迟，直接影响系统的性能和用户体验。</li>
+</ul>
+<p>PACELC理论的应用需要根据不同的业务场景和需求来选择合适的分布式系统架构和技术方案。例如一些需要快速响应的应用（如在线游戏、实时通讯），低延迟相对较为关键，那么就意味着用户可能看到稍微过时的数据；对于数据高度一致性要求高的应用（如金融交易、数据库同步），高一致性是必要的，即使会增加响应时间。</p>
+<p>在实际的系统设计中，延迟和一致性的权衡也并不都是二选一的问题，而是需要根据具体的业务需求和场景来调整。系统设计者可以通过配置和优化来找到一个平衡点，以满足特定的性能和一致性要求。例如，可以通过设置不同的一致性级别、使用缓存、数据分区等技术来平衡延迟和一致性。</p>
+<h3 id="BASE理论"><a href="#BASE理论" class="headerlink" title="BASE理论"></a>BASE理论</h3><pre><code>BASE理论的提出者是eBay的架构师Dan Pritchett。这个理论最初在1997年由Eric Brewer和他的学生们提出概念，但Dan Pritchett在2008年的ACM上发表的文章《Base: An Acid Alternative》中将其发扬光大。
+</code></pre>
+<p>BASE理论的提出场景是基于对大规模分布式系统的实践总结，因为在分布式系统中实现强一致性的代价太大，因此提出了一种只需要各应用分区在提供高可用服务的基础上，尽最大能力保证数据一致性，也就是保证数据的最终一致性。</p>
+<p>BASE理论的核心思想是：即使无法做到强一致性，但应用可以采用适合的方式达到最终一致性。</p>
+<p>BASE理论的核心思想包括三个方面：</p>
+<ul>
+<li>基本可用（Basically Available）：系统在出现故障时，允许损失部分可用性，即保证核心可用。比如服务降级。</li>
+<li>软状态（Soft State）：允许系统存在中间状态，而该中间状态不会影响系统的整体可用性。分布式存储中一般一份数据至少存三个副本，允许不同节点间副本同步的延迟就是软状态的体现。</li>
+<li>最终一致性（Eventually Consistent）：系统中的所有数据副本经过一段时间后，最终能够达成一致状态。</li>
+</ul>
+<p>BASE理论的实际应用场景包括需要高可用性和可扩展性的分布式系统，如互联网应用、金融系统、大数据处理和实时分析等。在这些场景中，由于网络环境的不确定性和用户请求的高并发性，系统经常面临数据不一致的问题。BASE理论提供了一种有效的解决方案，通过放宽对一致性的要求来提高系统的可用性和实时性。例如，在电商购物车系统中，BASE理论可以通过合理的设计来确保数据的最终一致性。</p>
+
       
     </div>
     <div class="article-footer">
@@ -429,6 +454,10 @@
   <div class="bar-inner">
   
   <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/11/25/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E5%AD%A6%E4%B9%A0/" title="分布式系统设计学习"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
     
     
     <li class="next">
